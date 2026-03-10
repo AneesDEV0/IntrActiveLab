@@ -1,31 +1,64 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مختبر العلوم التفاعلي</title>
+    <title>تركيب الكائنات الدقيقة 3D | المختبر العلمي الافتراضي</title>
+    <meta name="description"
+        content="استعرض تراكيب الكائنات الدقيقة بنماذج ثلاثية الأبعاد تفاعلية — المختبر العلمي الافتراضي">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/ThreeD.css">
 </head>
+
 <body>
 
+    <!-- جسيمات الخلفية (نفس index.html) -->
+    <div class="bg-particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span>
+    </div>
+
+    <!-- شبكة الخلفية -->
+    <div class="grid-overlay"></div>
+
+    <!-- البطاقة الرئيسية -->
     <div class="lab-card">
         <header>
+            <!-- شارة الصفحة -->
+            <div class="page-badge">
+                <span class="badge-dot"></span>
+                نماذج تفاعلية ثلاثية الأبعاد
+            </div>
+
+            <!-- العنوان الرئيسي -->
             <h1 id="main-title">تحميل المختبر...</h1>
+
+            <!-- تبويبات التنقل بين الكائنات -->
             <div class="nav-tabs">
-                <button onclick="switchOrganism('bacteria')" id="btn-bacteria" class="tab-btn active">خلية البكتيريا</button>
-                <button onclick="switchOrganism('paramecium')" id="btn-paramecium" class="tab-btn">البراميسيوم</button>
-                <button onclick="switchOrganism('spirogyra')" id="btn-spirogyra" class="tab-btn">السبيروجيرا</button>
+                <button onclick="switchOrganism('bacteria')" id="btn-bacteria" class="tab-btn active">🦠 خلية
+                    البكتيريا</button>
+                <button onclick="switchOrganism('paramecium')" id="btn-paramecium" class="tab-btn">🔬
+                    البراميسيوم</button>
+                <button onclick="switchOrganism('spirogyra')" id="btn-spirogyra" class="tab-btn">🌿 السبيروجيرا</button>
             </div>
         </header>
 
         <main class="content-wrapper">
+            <!-- جانب النموذج ثلاثي الأبعاد -->
             <div class="model-side">
-                <div class="embed-container"> 
-                    <iframe id="model-iframe" title="Biology Model" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking"></iframe> 
+                <div class="embed-container">
+                    <iframe id="model-iframe" title="Biology Model" frameborder="0" allowfullscreen
+                        allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
                 </div>
             </div>
 
+            <!-- جانب الاختبار -->
             <div class="quiz-side">
                 <table class="science-table">
                     <thead>
@@ -38,7 +71,6 @@
                     <tbody id="quizBody"></tbody>
                 </table>
                 <button class="btn-check" onclick="checkAnswers()">تحقق من إجاباتك ✅</button>
-                
                 <a href="../index.html" class="back-link">العودة للرئيسية</a>
             </div>
         </main>
@@ -47,4 +79,5 @@
     <script src="../js/sweetalert2.all.min.js"></script>
     <script src="../js/ThreeD.js"></script>
 </body>
+
 </html>

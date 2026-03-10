@@ -1,199 +1,584 @@
+/* =============================================
+   🦠 مختبر الكائنات الدقيقة ثلاثي الأبعاد — ThreeD.css
+   يتوافق مع ثيم الموقع الرئيسي (داكن + أخضر نيون + بنفسجي)
+   ============================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ========================
+   🎨 Design Tokens (متوافقة مع style.css)
+   ======================== */
 :root {
-    /* الألوان الجديدة: أخضر مختبري وأزرق علوم */
-    --science-green: #23d56d;      /* أخضر حيوي */
-    --research-blue: #3498db;      /* أزرق بحثي */
-    --line-mint: #70ffae;          /* أخضر فاتح للخطوط */
-    --line-blue: #a3d2f3;          /* أزرق فاتح للخطوط */
-    --text-black: #000000;         /* النص أسود تماماً */
-    --white: #ffffff;
-    --bg-gradient: linear-gradient(135deg, #f0f9f4 0%, #eef6fb 100%);
-    --shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.05);
+    --primary: #00e5a0;
+    --primary-dark: #00c484;
+    --primary-glow: rgba(0, 229, 160, 0.22);
+    --accent: #7c63ff;
+    --accent-glow: rgba(124, 99, 255, 0.22);
+    --bg-900: #060d1a;
+    --bg-800: #0c1628;
+    --bg-700: #111f38;
+    --bg-600: #162442;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f0f6ff;
+    --text-secondary: #8ba3cc;
+    --text-muted: #4a6080;
+    --danger: #ff4b6e;
+    --radius-xl: 1.5rem;
+    --radius-lg: 1rem;
+    --radius-md: 0.75rem;
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 1. أنميشن ظهور البطاقة الرئيسية */
-@keyframes cardEntry {
-    from { opacity: 0; transform: translateY(2rem); }
-    to { opacity: 1; transform: translateY(0); }
+/* ========================
+   🧱 Reset & Base
+   ======================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* 2. أنميشن ظهور صفوف الجدول بالتتابع */
-@keyframes rowIn {
-    from { opacity: 0; transform: translateX(1.5rem); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-/* 3. أنميشن النبض للزر (بالأزرق والأخضر) */
-@keyframes pulse-science {
-    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
-    70% { box-shadow: 0 0 0 0.8rem rgba(52, 152, 219, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: var(--bg-gradient);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Cairo', 'Segoe UI', sans-serif;
+    background: var(--bg-900);
+    color: var(--text-primary);
     min-height: 100vh;
     direction: rtl;
-    color: var(--text-black); /* تثبيت لون النص بالأسود */
+    overflow-x: hidden;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 3rem;
+}
+
+/* ========================
+   🕸️ Grid Overlay (نفس الموقع الرئيسي)
+   ======================== */
+.grid-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(0, 229, 160, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 160, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* ========================
+   ✨ Particles (نفس الموقع الرئيسي)
+   ======================== */
+.bg-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-particles span {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+
+.bg-particles span:nth-child(1) {
+    width: 3px;
+    height: 3px;
+    background: var(--primary);
+    left: 8%;
+    animation-duration: 14s;
+    animation-delay: 0s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(2) {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    left: 18%;
+    animation-duration: 19s;
+    animation-delay: 2s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(3) {
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    left: 30%;
+    animation-duration: 11s;
+    animation-delay: 5s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(4) {
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    left: 45%;
+    animation-duration: 16s;
+    animation-delay: 1s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(5) {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    left: 58%;
+    animation-duration: 12s;
+    animation-delay: 3s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(6) {
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    left: 68%;
+    animation-duration: 21s;
+    animation-delay: 6s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(7) {
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    left: 78%;
+    animation-duration: 13s;
+    animation-delay: 8s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(8) {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    left: 88%;
+    animation-duration: 17s;
+    animation-delay: 4s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(9) {
+    width: 3px;
+    height: 3px;
+    background: var(--primary);
+    left: 50%;
+    animation-duration: 15s;
+    animation-delay: 10s;
+    top: 100%;
+}
+
+.bg-particles span:nth-child(10) {
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    left: 95%;
+    animation-duration: 20s;
+    animation-delay: 7s;
+    top: 100%;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.8;
+        transform: translateY(-5vh) scale(1);
+    }
+
+    90% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(-105vh) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ========================
+   🃏 البطاقة الرئيسية
+   ======================== */
+@keyframes cardEntry {
+    from {
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .lab-card {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(1.25rem);
-    max-width: 68.75rem;
-    width: 95%;
-    border-radius: 2.5rem;
+    position: relative;
+    z-index: 2;
+    background: var(--bg-800);
+    border: 1px solid var(--glass-border);
+    max-width: 72rem;
+    width: 100%;
+    border-radius: var(--radius-xl);
     padding: 2.5rem;
-    box-shadow: var(--shadow);
-    /* حدود تجمع بين الأخضر والأزرق */
-    border: 0.125rem solid var(--line-mint);
-    animation: cardEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: cardEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    backdrop-filter: blur(12px);
+    overflow: hidden;
 }
 
-header h1 { 
-    color: var(--text-black); 
-    font-size: 2rem; 
-    margin-bottom: 1.5rem;
-    /* خط أخضر بجانب العنوان */
-    border-right: 0.3125rem solid var(--science-green);
-    padding-right: 0.9375rem;
+/* توهج خلفي بنفسجي للبطاقة */
+.lab-card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 99, 255, 0.07), transparent 70%);
+    pointer-events: none;
 }
 
-.nav-tabs { 
-    display: flex; 
-    justify-content: center; 
-    gap: 0.75rem; 
-    margin-bottom: 2rem; 
+/* ========================
+   🔝 Header
+   ======================== */
+header {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+/* شارة عنوان — نفس أسلوب hero-badge في الموقع */
+.page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(124, 99, 255, 0.07);
+    border: 1px solid rgba(124, 99, 255, 0.2);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.45rem 1.2rem;
+    border-radius: 2rem;
+    letter-spacing: 0.03em;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulseDot 2s ease infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        box-shadow: 0 0 4px var(--accent);
+    }
+
+    50% {
+        box-shadow: 0 0 14px var(--accent);
+    }
+}
+
+header h1 {
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.3;
+    border-right: 0.3125rem solid var(--accent);
+    padding-right: 1rem;
+}
+
+/* تبويبات التنقل */
+.nav-tabs {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.75rem;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .tab-btn {
-    padding: 0.75rem 1.75rem;
-    border: 0.125rem solid var(--research-blue);
-    background: transparent;
-    color: var(--text-black); /* النص أسود */
-    border-radius: 0.9375rem;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: var(--text-secondary);
+    border-radius: 999px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 .tab-btn:hover {
-    background: rgba(52, 152, 219, 0.1);
-    border-color: var(--science-green);
+    border-color: rgba(124, 99, 255, 0.4);
+    color: var(--text-primary);
+    background: rgba(124, 99, 255, 0.06);
 }
 
-.tab-btn.active { 
-    background: var(--science-green); 
-    color: var(--text-black); /* النص أسود فوق الخلفية الخضراء */
-    border-color: var(--science-green);
-    box-shadow: 0 0.5rem 0.9375rem rgba(46, 204, 113, 0.3);
+.tab-btn.active {
+    background: rgba(124, 99, 255, 0.12);
+    color: var(--accent);
+    border-color: rgba(124, 99, 255, 0.4);
+    box-shadow: 0 0 1rem var(--accent-glow);
 }
 
+/* ========================
+   📐 Content Layout
+   ======================== */
 .content-wrapper {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
+/* ========================
+   🖥️ النموذج ثلاثي الأبعاد
+   ======================== */
 .embed-container {
-    background: #000;
-    border-radius: 2rem;
+    background: var(--bg-700);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    height: 31.25rem;
-    /* حدود زرقاء للموديل */
-    border: 0.25rem solid var(--line-blue);
+    height: 32rem;
+    border: 1px solid rgba(124, 99, 255, 0.2);
+    box-shadow: 0 0 2rem rgba(124, 99, 255, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
-/* تنسيق الجدول */
-.science-table { 
-    width: 100%; 
-    border-collapse: separate; 
-    border-spacing: 0 0.5rem;
+.embed-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 0 1px rgba(124, 99, 255, 0.1);
+    pointer-events: none;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* ========================
+   📋 جانب الاختبار
+   ======================== */
+.quiz-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ========================
+   📊 الجدول العلمي
+   ======================== */
+@keyframes rowIn {
+    from {
+        opacity: 0;
+        transform: translateX(1.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.science-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.4rem;
 }
 
 .science-table tr {
     animation: rowIn 0.5s ease backwards;
 }
 
-.science-table th { 
-    padding: 0.9375rem; 
-    color: var(--text-black);
-    /* خط أزرق تحت العناوين */
-    border-bottom: 0.1875rem solid var(--research-blue); 
+.science-table th {
+    padding: 0.85rem 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+    text-align: right;
 }
 
-.science-table td { 
-    padding: 0.75rem; 
-    background: rgba(255, 255, 255, 0.6);
-    border-bottom: 0.0625rem solid var(--line-blue);
-    color: var(--text-black);
+.science-table td {
+    padding: 0.65rem 0.75rem;
+    background: var(--glass);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: 0.88rem;
 }
 
+/* الخلية الأولى (الرقم) */
 .science-table td:first-child {
-    font-weight: bold;
-    /* خط أخضر عمودي في الجدول */
-    border-right: 0.25rem solid var(--science-green);
-    border-radius: 0 0.625rem 0.625rem 0;
+    font-weight: 800;
+    color: var(--accent);
+    border-right: 3px solid var(--accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-left: none;
 }
 
+/* الخلية الأخيرة (الحالة) */
+.science-table td:last-child {
+    text-align: center;
+    font-size: 1rem;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    border-left: 1px solid var(--glass-border);
+    border-right: none;
+}
+
+/* ========================
+   🔽 القوائم المنسدلة
+   ======================== */
 select {
     width: 100%;
-    padding: 0.625rem;
-    border-radius: 0.5rem;
-    border: 0.0625rem solid var(--research-blue);
-    color: var(--text-black);
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    background: var(--bg-700);
+    color: var(--text-primary);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: rgba(124, 99, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(124, 99, 255, 0.1);
+}
+
+/* ========================
+   ✅ زر التحقق
+   ======================== */
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0.5rem var(--accent-glow);
+    }
+
+    50% {
+        box-shadow: 0 0 1.5rem var(--accent-glow), 0 0 3rem var(--primary-glow);
+    }
 }
 
 .btn-check {
     width: 100%;
-    margin-top: 1.5625rem;
-    padding: 1.125rem;
-    /* تدرج مختبري بين الأخضر والأزرق */
-    background: linear-gradient(45deg, var(--science-green), var(--research-blue));
-    color: var(--text-black); /* النص أسود فوق الزر */
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+    color: var(--bg-900);
     border: none;
-    border-radius: 0.9375rem;
-    font-weight: bold;
+    border-radius: var(--radius-lg);
+    font-weight: 800;
+    font-family: 'Cairo', sans-serif;
     cursor: pointer;
-    font-size: 1.1rem;
-    animation: pulse-science 2s infinite;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    animation: pulseGlow 3s ease infinite;
+    transition: var(--transition);
+    margin-top: 0.5rem;
 }
 
 .btn-check:hover {
-    transform: translateY(-0.1875rem);
+    transform: translateY(-3px);
     filter: brightness(1.1);
 }
 
+.btn-check:active {
+    transform: translateY(0);
+}
+
+/* ========================
+   🔙 رابط العودة
+   ======================== */
 .back-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     text-align: center;
-    margin-top: 1.25rem;
-    color: var(--text-black);
+    margin-top: 1rem;
+    color: var(--text-muted);
     text-decoration: none;
     font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.65rem;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: var(--glass);
+    transition: var(--transition);
 }
 
 .back-link:hover {
-    color: var(--research-blue);
+    color: var(--primary);
+    border-color: rgba(0, 229, 160, 0.3);
+    background: rgba(0, 229, 160, 0.05);
 }
 
 .back-link::before {
     content: "→";
-    margin-left: 0.5rem;
-    color: var(--science-green); /* السهم ملون */
+    color: var(--primary);
 }
 
+/* ========================
+   📱 Responsive
+   ======================== */
 @media (max-width: 56.25rem) {
-    .content-wrapper { grid-template-columns: 1fr; }
-    .embed-container { height: 21.875rem; }
+    body {
+        padding: 1rem 0.75rem 2rem;
+    }
+
+    .lab-card {
+        padding: 1.5rem;
+    }
+
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .embed-container {
+        height: 22rem;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
 }
 
-iframe{
-    width: 100%;
-    height: 100%;
+@media (max-width: 400px) {
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+    }
 }

@@ -115,3 +115,7 @@ function checkAnswers() {
 }
 
 window.onload = () => switchOrganism('bacteria');
+
+/*
+
+*/
