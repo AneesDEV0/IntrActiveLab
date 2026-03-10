@@ -11,7 +11,7 @@ const resultSection = document.getElementById('resultSection');
 const resCommonName = document.getElementById('res-commonName');
 const saveBtn = document.getElementById('saveBtn');
 
-const API_URL = 'http://interactiveexcerciceapi.runasp.net/api/Classification/analyze';
+const API_URL = 'https://interactiveexcerciceapi.runasp.net/api/Classification/analyze';
 
 // الحالة الحالية
 let currentData = null;
