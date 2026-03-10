@@ -1,92 +1,319 @@
-body {
-    background: #0f172a;
-    color: white;
+/* =============================================
+   🍄 تحدي الفطر — fungus.css
+   ============================================= */
+
+/* Page Header */
+.page-header {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 20px;
+    padding: 3rem 1.5rem 2rem;
 }
 
-.container {
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    background: var(--glass);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+}
+
+.back-link:hover {
+    color: var(--primary);
+    background: rgba(0, 229, 160, 0.1);
+    border-color: rgba(0, 229, 160, 0.2);
+    transform: translateX(5px);
+}
+
+.page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Challenge Container */
+.challenge-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 850px) {
+    .challenge-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Glass Panels */
+.glass-panel {
+    background: var(--bg-800);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.panel-header h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.panel-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Video Section */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-wrapper video {
+    width: 100%;
+    display: block;
+    max-height: 400px;
+}
+
+/* Game Section */
+.timer-section {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 
-.game {
-    width: 350px;
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+.timer-badge {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffd166;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    transition: var(--transition);
 }
 
-#timer-display {
-    font-size: 1.5rem;
-    color: #fbbf24;
-    margin-bottom: 15px;
-    font-weight: bold;
+.timer-badge.timer-low {
+    background: rgba(255, 75, 110, 0.1);
+    color: var(--danger);
+    border-color: rgba(255, 75, 110, 0.3);
+    animation: dangerPulse 1s infinite alternate;
 }
 
-#start-btn {
+@keyframes dangerPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 75, 110, 0);
+    }
+
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 75, 110, 0.3);
+    }
+}
+
+/* Buttons */
+.action-btn {
     width: 100%;
-    padding: 12px;
-    background: #3b82f6;
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 15px;
-    transition: 0.3s;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
 }
 
-#start-btn:hover { background: #2563eb; }
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--bg-900);
+    box-shadow: 0 5px 15px rgba(0, 229, 160, 0.3);
+}
 
-#check-btn {
-    width: 100%;
-    padding: 12px;
-    background: #475569;
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 229, 160, 0.5);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
     color: white;
-    border: none;
-    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
+
+.btn-success:disabled {
+    background: var(--glass);
+    color: var(--text-muted);
+    border: 1px solid var(--glass-border);
+    box-shadow: none;
     cursor: not-allowed;
-    font-weight: bold;
-    margin-top: 15px;
+    transform: none;
 }
 
-ul { list-style: none; padding: 0; }
+/* Draggable List */
+.game-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    min-height: 250px;
+    padding: 0;
+}
 
-li { 
-    background: #334155;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    transition: 0.3s;
-    border: 2px solid transparent;
+.game-list li {
+    background: var(--bg-700);
+    border: 1px solid var(--glass-border);
+    padding: 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     user-select: none;
+    display: flex;
+    align-items: center;
 }
 
-/* حالة القائمة المعطلة */
+.game-list li::before {
+    content: '⋮⋮';
+    margin-left: 1rem;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Disabled State */
 .disabled-list li {
-    opacity: 0.5;
-    cursor: not-allowed !important;
-    filter: grayscale(1);
+    opacity: 0.6;
+    background: var(--bg-900);
 }
 
-/* حالة السحب والاهتزاز */
-li.dragging { opacity: 0.5; border: 2px dashed #22c55e; background: #1e293b; }
-
-.shake { animation: shake 0.5s ease-in-out; border: 2px solid #ef4444 !important; }
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-8px); }
+.disabled-list li::before {
+    opacity: 0.3;
 }
 
-.timer-low { color: #ef4444 !important; animation: pulse 1s infinite; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+/* Active Dragging States */
+.game-list:not(.disabled-list) li {
+    cursor: grab;
+}
+
+.game-list:not(.disabled-list) li:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.game-list:not(.disabled-list) li:active {
+    cursor: grabbing;
+}
+
+.game-list li.dragging {
+    opacity: 0.4;
+    border: 2px dashed var(--primary);
+    background: var(--primary-glow);
+    transform: scale(0.98);
+}
+
+.game-list.shake {
+    animation: listShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes listShake {
+
+    10%,
+    90% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(4px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-8px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(8px, 0, 0);
+    }
+}
+
+/* SweetAlert Customizations overrides */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: var(--bg-800);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: var(--radius-xl);
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+    color: var(--text-primary);
+}
+
+div:where(.swal2-container) div:where(.swal2-html-container) {
+    color: var(--text-muted);
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background: var(--primary);
+    color: var(--bg-900);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-weight: 700;
+}
