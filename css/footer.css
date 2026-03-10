@@ -1,0 +1,89 @@
+/* --- ملف الفوتر الديناميكي --- */
+
+:root {
+    --primary-mint: #2ecc71;
+    --text-dark: #222222;
+    --white: #ffffff;
+    --orange: #f09819;
+}
+
+/* الفوتر الأساسي */
+.simple-footer {
+    background: rgba(255, 255, 255, 0.7);        /* خلفية شفافة */
+    backdrop-filter: blur(0.625rem);             /* تأثير زجاجي */
+    padding: 1.25rem 0.5rem;
+    width: 100%;
+    margin-top: auto;                             /* يبقى في الأسفل */
+    border-top: 0.1875rem solid var(--primary-mint);
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 -0.3125rem 1.25rem rgba(0, 0, 0, 0.03);
+    transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+/* محتوى الفوتر */
+.footer-content {
+    max-width: 68.75rem;   /* 1100px */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footer-content p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.0313rem;
+    transition: color 0.4s ease-in-out;
+}
+
+.footer-content span {
+    color: var(--orange);
+    margin-right: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.3125rem;
+    background: rgba(255, 189, 105, 0.1);
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* تأثير Hover على الاسم */
+.footer-content span:hover {
+    transform: translateY(-0.1875rem);
+    color: #e67e22;
+    background: rgba(255, 189, 105, 0.2);
+    box-shadow: 0 0.25rem 0.5rem rgba(240, 152, 25, 0.1);
+}
+
+/* --- التجاوب --- */
+@media (max-width: 48rem) { /* 768px */
+    .footer-content {
+        flex-direction: column;
+    }
+    .footer-content p {
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 25rem) { /* 400px */
+    .simple-footer {
+        padding: 1rem 0.5rem;
+    }
+    .footer-content p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+    .footer-content span {
+        margin-right: 0.25rem;
+        padding: 0.1rem 0.3rem;
+        font-size: 0.9rem;
+    }
+}
+
