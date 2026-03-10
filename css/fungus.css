@@ -1,0 +1,92 @@
+body {
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.game {
+    width: 350px;
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+#timer-display {
+    font-size: 1.5rem;
+    color: #fbbf24;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#start-btn {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+#start-btn:hover { background: #2563eb; }
+
+#check-btn {
+    width: 100%;
+    padding: 12px;
+    background: #475569;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: not-allowed;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+ul { list-style: none; padding: 0; }
+
+li { 
+    background: #334155;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: 0.3s;
+    border: 2px solid transparent;
+    user-select: none;
+}
+
+/* حالة القائمة المعطلة */
+.disabled-list li {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    filter: grayscale(1);
+}
+
+/* حالة السحب والاهتزاز */
+li.dragging { opacity: 0.5; border: 2px dashed #22c55e; background: #1e293b; }
+
+.shake { animation: shake 0.5s ease-in-out; border: 2px solid #ef4444 !important; }
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+}
+
+.timer-low { color: #ef4444 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }

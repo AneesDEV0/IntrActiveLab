@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دورة حياة الفطر - تحدي الترتيب</title>
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../css/fungus.css">
+</head>
+<body>
+
+    <h1>رتب مراحل نمو الفطر</h1>
+
+    <div class="container">
+        <div class="video">
+            <video width="500" controls>
+                <source src="../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="game">
+            <div id="timer-display">جاهز للتحدي؟</div>
+            
+            <button id="start-btn" onclick="startChallenge()">بدء التحدي (60 ثانية)</button>
+
+            <ul id="steps" class="disabled-list">
+                <li draggable="false">الميسيليوم</li>
+                <li draggable="false">الأبواغ</li>
+                <li draggable="false">جسم الفطر</li>
+                <li draggable="false">الخيوط الفطرية</li>
+            </ul>
+
+            <button id="check-btn" onclick="checkAnswer()" disabled>تحقق من الإجابة</button>
+        </div>
+    </div>
+
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/fungus.js"></script>
+</body>
+</html>
