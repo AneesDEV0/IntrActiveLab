@@ -63,6 +63,9 @@
                 <button class="tab-btn" data-tab="fungi">
                     <span class="tab-icon"><i class="fa-brands fa-pagelines"></i></span> الفطريات
                 </button>
+                <button class="tab-btn" data-tab="discover">
+                    <span class="tab-icon"><i class="fa-solid fa-magnifying-glass"></i></span> اكتشف مرض
+                </button>
             </div>
 
             <!-- محتوى التبويبات -->
@@ -100,7 +103,7 @@
 
                         <div class="stage-details">
                             
-                            <div id="v1" class="stage-card active-card">
+                            <div id="v1" class="stage-card active-stage-info">
                                 <h3>1. الدخول والالتصاق</h3>
                                 <div class="card-icon"><i class="fa-solid fa-magnet"></i></div>
                                 <p>يلتصق الفيروس بمستقبلات خاصة على سطح خلية المضيف للبدء في غزوها.</p>
@@ -182,7 +185,7 @@
                         </div>
 
                         <div class="stage-details">
-                            <div id="b1" class="stage-card active-card">
+                            <div id="b1" class="stage-card active-stage-info">
                                 <h3>1. التعرض والدخول</h3>
                                 <div class="card-icon"><i class="fa-solid fa-door-open"></i></div>
                                 <p>تدخل البكتيريا الممرضة للجسم عبر الجروح المفتوحة، الفم، أو الجهاز التنفسي.</p>
@@ -263,7 +266,7 @@
                         </div>
 
                         <div class="stage-details">
-                            <div id="p1" class="stage-card active-card">
+                            <div id="p1" class="stage-card active-stage-info">
                                 <h3>1. الابتلاع أو اللدغ (المرحلة المُعدية)</h3>
                                 <div class="card-icon"><i class="fa-solid fa-mosquito"></i></div>
                                 <p>يدخل الطفيل عن طريق لدغة حشرة ناقلة أو ابتلاع طعام أو ماء ملوث بالبيوض.</p>
@@ -344,7 +347,7 @@
                         </div>
 
                         <div class="stage-details">
-                            <div id="f1" class="stage-card active-card">
+                            <div id="f1" class="stage-card active-stage-info">
                                 <h3>1. استنشاق الأبواغ أو التلامس</h3>
                                 <div class="card-icon"><i class="fa-solid fa-wind"></i></div>
                                 <p>تدخل الأبواغ الفطرية الدقيقة للجسم عبر الاستنشاق أو تصيب الجلد عبر التلامس المباشر.</p>
@@ -390,6 +393,29 @@
                             <button id="fungi-verify-btn" class="action-btn btn-success" onclick="verifyChallenge('fungi')" disabled>
                                 <i class="fa-solid fa-check-double"></i> تحقق من الترتيب
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تبويب اكتشف مرض -->
+                <div class="tab-pane" id="discover-pane">
+                    <div class="discover-container">
+                        <div class="search-box glass-panel">
+                            <h3>ابحث عن أي مرض لاكتشاف مراحل تطوره</h3>
+                            <div class="search-input-wrapper">
+                                <input type="text" id="disease-search-input" placeholder="أدخل اسم المرض (مثال: الأنفلونزا)" autocomplete="off">
+                                <button id="discover-btn" class="discover-search-btn">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> اكتشف الآن
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="discover-results" class="discover-results-area">
+                            <!-- النتائج ستظهر هنا بصيغة تفاعلية -->
+                            <div class="empty-state">
+                                <i class="fa-solid fa-microscope"></i>
+                                <p>بانتظار بحثك... ابدأ بكتابة اسم مرض لتعرف أسراره.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

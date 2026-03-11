@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ---------------------------------
        2. إدارة المخطط الزمني (Timeline)
        --------------------------------- */
-    // نطبق المنطق على كل حاوية تبويب بشكل منفصل
-    tabPanes.forEach(pane => {
+    function setupTimeline(pane) {
         const nodes = pane.querySelectorAll('.node');
         const lines = pane.querySelectorAll('.timeline-line');
         const stageCards = pane.querySelectorAll('.stage-card');
@@ -59,14 +58,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 2.2 إظهار بطاقة الشرح المطابقة فقط
                 stageCards.forEach(card => {
-                    card.classList.remove('active-card');
+                    card.classList.remove('active-stage-info');
                     if (card.id === targetStageId) {
-                        card.classList.add('active-card');
+                        card.classList.add('active-stage-info');
                     }
                 });
             });
         });
+    }
+
+    // نطبق المنطق على كل حاوية تبويب بشكل منفصل
+    tabPanes.forEach(pane => {
+        setupTimeline(pane);
     });
+
+    // Make it available globally for dynamic content
+    window.setupTimeline = setupTimeline;
 
 });
 
@@ -265,3 +272,142 @@ function getDiseaseNameInArabic(diseaseType) {
     };
     return names[diseaseType] || diseaseType;
 }
+
+/* -------------------------------------------------------------
+   4. Discover Disease functionality
+------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+    const discoverBtn = document.getElementById('discover-btn');
+    const searchInput = document.getElementById('disease-search-input');
+    const resultsArea = document.getElementById('discover-results');
+
+    if (discoverBtn) {
+        discoverBtn.addEventListener('click', () => {
+            const diseaseName = searchInput.value.trim();
+            if (!diseaseName) {
+                Swal.fire({
+                    title: 'تنبيه',
+                    text: 'يرجى إدخال اسم المرض للبحث',
+                    icon: 'warning',
+                    confirmButtonText: 'حسناً'
+                });
+                return;
+            }
+
+            performDiscovery(diseaseName);
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                discoverBtn.click();
+            }
+        });
+    }
+
+    async function performDiscovery(diseaseName) {
+        // Show loading state
+        resultsArea.innerHTML = `
+            <div class="loading-shimmer-container">
+                <div class="loading-shimmer"></div>
+                <div class="loading-shimmer"></div>
+                <div class="loading-shimmer"></div>
+            </div>
+        `;
+
+        try {
+            const response = await fetch('https://interactiveexcerciceapi.runasp.net/api/Disease/lifecycle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ diseaseName })
+            });
+
+            if (!response.ok) {
+                throw new Error('لم نتمكن من العثور على معلومات لهذا المرض حالياً');
+            }
+
+            const data = await response.json();
+            renderDiscoveryResults(data);
+
+        } catch (error) {
+            console.error('Discovery Error:', error);
+            resultsArea.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-solid fa-circle-exclamation" style="color: var(--danger)"></i>
+                    <p>${error.message || 'حدث خطأ أثناء الاتصال بالسيرفر. يرجى المحاولة لاحقاً.'}</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderDiscoveryResults(data) {
+        if (!data.stages || data.stages.length === 0) {
+            resultsArea.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-solid fa-face-frown"></i>
+                    <p>عذراً، لم نجد مراحل حياة لهذا المرض في قاعدة بياناتنا.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const totalStages = data.stages.length;
+        const angleStep = 360 / totalStages;
+
+        let html = `
+            <div class="timeline-container" style="animation: fadeIn 0.8s ease-out; width: 100%;">
+                <div class="timeline-nodes">
+        `;
+
+        // Generate Nodes
+        data.stages.forEach((stage, index) => {
+            const angle = angleStep * index;
+            html += `
+                <div class="node dynamic-node ${index === 0 ? 'active' : ''}" 
+                     data-stage="ds-${stage.stageNumber}" 
+                     style="--dynamic-angle: ${angle}deg">
+                    <div class="node-circle">${stage.stageNumber}</div>
+                    <span>${stage.title}</span>
+                </div>
+            `;
+            
+            // Add lines between nodes (logic expects them in order if we want to color them)
+            if (index < totalStages - 1) {
+                html += `<div class="timeline-line"></div>`;
+            }
+        });
+
+        html += `
+                </div>
+                <div class="stage-details">
+        `;
+
+        // Generate Stage Cards
+        data.stages.forEach((stage, index) => {
+            html += `
+                <div id="ds-${stage.stageNumber}" class="stage-card ${index === 0 ? 'active-stage-info' : ''}">
+                    <h2 style="color: white; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">${data.diseaseName}</h2>
+                    <h3>${stage.stageNumber}. ${stage.title}</h3>
+                    <div class="card-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <p>${stage.description}</p>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        resultsArea.innerHTML = html;
+
+        // Initialize timeline behavior for this new content
+        if (window.setupTimeline) {
+            window.setupTimeline(resultsArea);
+        }
+    }
+});
+
