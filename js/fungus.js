@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { text: "لا تحتوي على بذور وتتكاثر بالأبواغ", isCorrect: true },
                 { text: "تعيش في المناطق الرطبة الظليلة", isCorrect: true },
                 { text: "لا تمتلك أوعية ناقلة (خشب ولحاء)", isCorrect: true },
-                { text: "تنتقل فيها المواد بالانتشار والأسموزية", isCorrect: true },
+                { text: "طولها من (2-5)سم", isCorrect: true },
                 { text: "تمتلك جذوراً حقيقية قوية", isCorrect: false },
                 { text: "تنتج ثماراً وأزهاراً ملونة", isCorrect: false },
                 { text: "تعتبر أشجار النخيل مثالاً عليها", isCorrect: false },
