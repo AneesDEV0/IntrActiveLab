@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/fungus.css">
+    <style>
+        /* تنسيق بسيط لزر الأكتيف لضمان ظهوره فوراً */
+        .tab-btn.active {
+            background: var(--primary-gradient, #00e5a0);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 229, 160, 0.4);
+            border-color: transparent;
+        }
+    </style>
 </head>
 <body>
     <div class="bg-particles"><span></span><span></span><span></span><span></span></div>
@@ -15,35 +24,52 @@
 
     <div class="page-header">
         <a href="../index.html" class="back-link"> العودة للرئيسية </a>
-        <h1 class="page-title">تحدي <span id="challenge-title" class="gradient-word">دورة حياة الفطر</span> <span id="challenge-icon">🍄</span></h1>
+        <h1 class="page-title">
+            تحدي <span id="challenge-title" class="gradient-word">دورة حياة الفطر</span> 
+            <span id="challenge-icon">🍄</span>
+        </h1>
         
         <div class="tabs-wrapper" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
-            <button class="tab-btn active" onclick="switchChallenge('fungus')">الفطر 🍄</button>
-            <button class="tab-btn" onclick="switchChallenge('frog')">الضفدع 🐸</button>
-            <button class="tab-btn" onclick="switchChallenge('plants_vas')">نباتات وعائية 🌱</button>
-            <button class="tab-btn" onclick="switchChallenge('plants_non')">نباتات لا وعائية 🌿</button>
+            <button class="tab-btn active" onclick="switchChallenge('fungus', this)">الفطر 🍄</button>
+            <button class="tab-btn" onclick="switchChallenge('frog', this)">الضفدع 🐸</button>
+            <button class="tab-btn" onclick="switchChallenge('plants_vas', this)">نباتات وعائية 🌱</button>
+            <button class="tab-btn" onclick="switchChallenge('plants_non', this)">نباتات لا وعائية 🌿</button>
         </div>
     </div>
 
     <div class="challenge-container">
         <div class="video-panel glass-panel">
-            <div class="panel-header"><span class="icon">🎥</span><h3>شاهد التعليمات</h3></div>
+            <div class="panel-header">
+                <span class="icon">🎥</span>
+                <h3>شاهد التعليمات</h3>
+            </div>
             <div class="video-wrapper">
                 <video id="tutorial-video" controls style="width: 100%; border-radius: 12px;">
                     <source id="video-source" src="../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4" type="video/mp4">
                     متصفحك لا يدعم تشغيل الفيديو.
                 </video>
             </div>
-            <p id="video-desc" class="panel-desc">شاهد الفيديو بتمعن لمعرفة التسلسل الصحيح للمراحل.</p>
+            <p id="video-desc" class="panel-desc">شاهد الفيديو بتمعن لمعرفة المعلومات الصحيحة عن الكائن الحي.</p>
         </div>
 
         <div class="game-panel glass-panel">
-            <div class="panel-header"><span class="icon">🧩</span><h3>منطقة التحدي</h3></div>
-            <div class="timer-section"><div id="timer-display" class="timer-badge">جاهز للتحدي؟</div></div>
-            <button id="start-btn" class="action-btn btn-primary" onclick="startChallenge()">بدء التحدي (60 ثانية)</button>
-            <ul id="steps" class="game-list disabled-list"></ul>
+            <div class="panel-header">
+                <span class="icon">🧩</span>
+                <h3>منطقة التحدي <span id="instruction-text">(حرك ورتب)</span></h3>                
+            </div>
+            
+            <div class="timer-section">
+                <div id="timer-display" class="timer-badge">جاهز للتحدي؟</div>
+            </div>
+
+            <button id="start-btn" class="action-btn btn-primary" onclick="startChallenge()">بدء التحدي</button>
+            
+            <ul id="steps" class="game-list disabled-list">
+                </ul>
+            
             <button id="check-btn" class="action-btn btn-success" onclick="checkAnswer()" style="display: none;">تحقق من الإجابة</button>
-        </div>
+            
+            </div>
     </div>
 
     <script src="../js/sweetalert2.all.min.js"></script>

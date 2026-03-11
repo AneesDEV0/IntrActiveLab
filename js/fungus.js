@@ -1,82 +1,119 @@
 document.addEventListener("DOMContentLoaded", function () {
     const list = document.getElementById("steps");
-    const timerDisplay = document.getElementById("timer-display");
     const startBtn = document.getElementById("start-btn");
     const checkBtn = document.getElementById("check-btn");
+    const timerDisplay = document.getElementById("timer-display");
     const videoPlayer = document.getElementById("tutorial-video");
     const videoSource = document.getElementById("video-source");
 
-    let timerInterval = null;
+    let timerInterval;
+    let timeLeft = 60;
     let currentChallenge = 'fungus';
 
-    // بيانات التحديات - تعتمد كلياً على ملفاتك المحلية
+    const resetBtn = document.createElement("button");
+    resetBtn.id = "reset-btn";
+    resetBtn.className = "action-btn btn-primary";
+    resetBtn.style.display = "none";
+    resetBtn.style.marginTop = "10px";
+    resetBtn.innerHTML = "🔄 محاولة مرة أخرى";
+    resetBtn.onclick = () => resetGameUI();
+    checkBtn.parentNode.appendChild(resetBtn);
+
     const data = {
-        fungus: {
-            title: "دورة حياة الفطر",
-            icon: "🍄",
-            steps: ["الأبواغ", "الخيوط الفطرية", "الميسيليوم", "جسم الفطر"],
-            video: "../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4",
-            desc: "شاهد كيف يبدأ الفطر من الأبواغ المجهرية لينمو ويشكل جسماً ثمرياً كاملاً."
-        },
-        frog: {
-            title: "دورة حياة الضفدع",
-            icon: "🐸",
-            steps: ["البيوض", "أبو ذنيبة", "أبو ذنيبة بأرجل", "ضفدع صغير", "ضفدع بالغ"],
-            video: "../video/WhatsApp Video 2026-03-11 at 10.17.59 AM.mp4", // تأكد من وجود الملف بهذا الاسم
-            desc: "راقب مراحل التحول المذهلة للضفدع من بيضة في الماء إلى حيوان برمائي بالغ."
-        },
-        plants_vas: {
-            title: "النباتات الوعائية",
-            icon: "🌱",
-            steps: ["امتصاص الماء (جذور)", "نقل السوائل (ساق)", "بناء ضوئي (أوراق)", "إنتاج البذور"],
-            video: "../video/WhatsApp Video 2026-03-11 at 10.57.18 AM.mp4", // تأكد من وجود الملف بهذا الاسم
-            desc: "تعرف على النباتات الوعائية التي تمتلك نظام نقل معقد (خشب ولحاء) لنقل الغذاء."
-        },
-        plants_non: {
-            title: "النباتات اللاوعائية",
-            icon: "🌿",
-            steps: ["أبواغ (Spores)", "نمو خيوط أولية", "نبات مشيجي ناضج", "إخصاب بوجود الماء"],
-            video: "../video/non_vascular.mp4", // تأكد من وجود الملف بهذا الاسم
-            desc: "اكتشف النباتات البسيطة كالحزازيات التي تعيش في الأماكن الرطبة وتتكاثر بالأبواغ."
+        fungus: { type: "sort", title: "دورة حياة الفطر", icon: "🍄", steps: ["الأبواغ", "الخيوط الفطرية", "الميسيليوم", "جسم الفطر"], video: "../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4", desc: "رتب مراحل نمو الفطر بالتسلسل الصحيح." },
+        frog: { type: "sort", title: "دورة حياة الضفدع", icon: "🐸", steps: ["البيوض", "أبو ذنيبة", "أبو ذنيبة بأرجل", "ضفدع صغير", "ضفدع بالغ"], video: "../video/WhatsApp Video 2026-03-11 at 10.17.59 AM.mp4", desc: "رتب مراحل تحول الضفدع من الماء إلى اليابسة." },
+        plants_vas: { type: "sort", title: "النباتات الوعائية", icon: "🌱", steps: ["امتصاص الماء (جذور)", "نقل السوائل (ساق)", "بناء ضوئي (أوراق)", "إنتاج البذور"], video: "../video/WhatsApp Video 2026-03-11 at 10.57.18 AM.mp4", desc: "رتب آلية عمل الأنسجة الوعائية في النبات." },
+        plants_non: { 
+            type: "quiz", title: "حقائق النباتات اللاوعائية", icon: "🌿", 
+            items: [
+                { text: "تمتلك أشباه جذور وأشباه سيقان", isCorrect: true },
+                { text: "لا تحتوي على بذور وتتكاثر بالأبواغ", isCorrect: true },
+                { text: "تعيش في المناطق الرطبة الظليلة", isCorrect: true },
+                { text: "لا تمتلك أوعية ناقلة (خشب ولحاء)", isCorrect: true },
+                { text: "تنتقل فيها المواد بالانتشار والأسموزية", isCorrect: true },
+                { text: "تمتلك جذوراً حقيقية قوية", isCorrect: false },
+                { text: "تنتج ثماراً وأزهاراً ملونة", isCorrect: false },
+                { text: "تعتبر أشجار النخيل مثالاً عليها", isCorrect: false },
+                { text: "تنمو لارتفاعات شاهقة جداً", isCorrect: false },
+                { text: "تستطيع العيش في الصحراء الجافة بدون ماء", isCorrect: false }
+            ], 
+            video: "../video/WhatsApp Video 2026-03-11 at 2.41.27 PM.mp4", desc: "اختر 5 خصائص صحيحة للنباتات اللاوعائية." 
         }
     };
 
-    // وظيفة التبديل بين الأقسام
-    window.switchChallenge = function(type) {
+    window.switchChallenge = function(type, element) {
         currentChallenge = type;
         const challenge = data[type];
-        
-        // 1. تحديث النصوص والأيقونات
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (element) element.classList.add('active');
         document.getElementById("challenge-title").innerText = challenge.title;
         document.getElementById("challenge-icon").innerText = challenge.icon;
         document.getElementById("video-desc").innerText = challenge.desc;
-
-        // 2. تحديث ملف الفيديو المحلي
+        document.getElementById("instruction-text").innerText = (challenge.type === "sort") ? "(حرك ورتب)" : "(اختر 5 خصائص)";
         videoSource.src = challenge.video;
-        videoPlayer.load(); // إعادة تحميل المشغل لقراءة الملف الجديد
-
-        // 3. تحديث مظهر الأزرار (Tabs)
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-
-        // 4. إعادة ضبط اللعبة والقائمة
+        videoPlayer.load();
         resetGameUI();
-        createChallengeItems();
     };
 
-    // إنشاء عناصر القائمة بناءً على التحدي المختار
-    function createChallengeItems() {
-        list.innerHTML = "";
-        data[currentChallenge].steps.forEach(step => {
-            const li = document.createElement("li");
-            li.innerHTML = step;
-            li.setAttribute("draggable", "false"); // لا يمكن السحب إلا بعد الضغط على "بدء"
-            list.appendChild(li);
-        });
-        shuffleItems();
+    function startCountdown() {
+        clearInterval(timerInterval);
+        timeLeft = 60;
+        timerDisplay.innerText = `الوقت المتبقي: ${timeLeft}s`;
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.innerText = `الوقت المتبقي: ${timeLeft}s`;
+            if (timeLeft <= 10) timerDisplay.style.color = "#ff4757";
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                gameOver();
+            }
+        }, 1000);
     }
 
-    // خلط العناصر عشوائياً
+    function gameOver() {
+        list.classList.add("disabled-list");
+        checkBtn.style.display = "none";
+        resetBtn.style.display = "flex";
+        Swal.fire({
+            icon: 'error',
+            title: 'انتهى الوقت!',
+            text: 'للأسف لم تنهِ التحدي في الوقت المحدد.',
+            confirmButtonText: 'حاول مرة أخرى'
+        });
+    }
+
+    function initItems() {
+        list.innerHTML = "";
+        const challenge = data[currentChallenge];
+        if (challenge.type === "sort") {
+            challenge.steps.forEach(step => {
+                const li = document.createElement("li");
+                li.innerHTML = step;
+                list.appendChild(li);
+            });
+            shuffleItems();
+        } else {
+            const shuffled = [...challenge.items].sort(() => Math.random() - 0.5);
+            shuffled.forEach(item => {
+                const li = document.createElement("li");
+                li.innerHTML = `<span class="status-icon"></span> ${item.text}`;
+                li.dataset.correct = item.isCorrect;
+                li.className = "fact-item";
+                li.onclick = function() {
+                    if (list.classList.contains("disabled-list")) return;
+                    const selectedCount = list.querySelectorAll(".selected").length;
+                    if (!this.classList.contains("selected") && selectedCount >= 5) {
+                        Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'وصلت للحد الأقصى (5 خصائص)', showConfirmButton: false, timer: 1500 });
+                        return;
+                    }
+                    this.classList.toggle("selected");
+                };
+                list.appendChild(li);
+            });
+        }
+    }
+
     function shuffleItems() {
         const items = Array.from(list.children);
         items.sort(() => Math.random() - 0.5);
@@ -84,56 +121,103 @@ document.addEventListener("DOMContentLoaded", function () {
         items.forEach(item => list.appendChild(item));
     }
 
-    // إعادة ضبط الواجهة
+    window.startChallenge = function() {
+        startBtn.style.display = "none";
+        checkBtn.style.display = "flex";
+        resetBtn.style.display = "none";
+        list.classList.remove("disabled-list");
+        timerDisplay.style.color = "#00e5a0";
+        startCountdown();
+        if (data[currentChallenge].type === "sort") {
+            document.querySelectorAll("#steps li").forEach(li => li.setAttribute("draggable", "true"));
+        }
+    };
+
+    window.checkAnswer = function() {
+        const challenge = data[currentChallenge];
+        const allItems = list.querySelectorAll("li");
+        clearInterval(timerInterval);
+
+        if (challenge.type === "sort") {
+            let isAllCorrect = true;
+            allItems.forEach((li, index) => {
+                if (li.innerText.trim() === challenge.steps[index]) {
+                    li.style.backgroundColor = "rgba(0, 229, 160, 0.4)";
+                    li.style.borderColor = "#00e5a0";
+                } else {
+                    li.style.backgroundColor = "rgba(255, 71, 87, 0.4)";
+                    li.style.borderColor = "#ff4757";
+                    isAllCorrect = false;
+                }
+            });
+
+            if (isAllCorrect) {
+                Swal.fire({ icon: 'success', title: 'عمل رائع!', text: 'لقد رتبت المراحل بشكل صحيح', confirmButtonColor: '#00e5a0' });
+            } else {
+                Swal.fire({ icon: 'error', title: 'هناك أخطاء', text: 'راجع الترتيب الملون بالأحمر', confirmButtonColor: '#ff4757' });
+            }
+            finishVisuals();
+
+        } else {
+            const selectedItems = list.querySelectorAll(".selected");
+            if (selectedItems.length !== 5) {
+                Swal.fire({ icon: 'warning', title: 'تنبيه', text: `يجب اختيار 5 خصائص فقط.`, confirmButtonColor: '#00e5a0' });
+                startCountdown(); // استكمال الوقت
+                return;
+            }
+
+            allItems.forEach(li => {
+                const isCorrect = li.dataset.correct === "true";
+                const isSelected = li.classList.contains("selected");
+                const icon = li.querySelector('.status-icon');
+                li.classList.remove("selected");
+
+                if (isSelected && isCorrect) {
+                    li.style.backgroundColor = "rgba(0, 229, 160, 0.4)"; li.style.borderColor = "#00e5a0";
+                    icon.innerHTML = "✅";
+                } else if (isSelected && !isCorrect) {
+                    li.style.backgroundColor = "rgba(255, 71, 87, 0.6)"; li.style.borderColor = "#ff4757";
+                    icon.innerHTML = "❌";
+                } else if (!isSelected && isCorrect) {
+                    li.style.backgroundColor = "rgba(0, 229, 160, 0.1)"; li.style.borderColor = "#00e5a0";
+                    li.style.opacity = "0.8"; icon.innerHTML = "💡"; 
+                } else {
+                    li.style.opacity = "0.2"; li.style.filter = "grayscale(100%)";
+                }
+            });
+            finishVisuals();
+        }
+    };
+
+    function finishVisuals() {
+        list.classList.add("disabled-list");
+        checkBtn.style.display = "none";
+        resetBtn.style.display = "flex"; 
+    }
+
     function resetGameUI() {
         clearInterval(timerInterval);
         timerDisplay.innerText = "جاهز للتحدي؟";
-        timerDisplay.classList.remove("timer-low");
+        timerDisplay.style.color = "#fff";
         startBtn.style.display = "flex";
         checkBtn.style.display = "none";
+        resetBtn.style.display = "none";
         list.classList.add("disabled-list");
+        initItems();
     }
 
-    // بدء التحدي والمؤقت
-    window.startChallenge = function() {
-        shuffleItems();
-        startBtn.style.display = "none";
-        checkBtn.style.display = "flex";
-        checkBtn.disabled = false;
-        list.classList.remove("disabled-list");
-        
-        // تفعيل خاصية السحب
-        document.querySelectorAll("#steps li").forEach(li => li.setAttribute("draggable", "true"));
-
-        let timeLeft = 60;
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            timerDisplay.innerText = `الوقت: ${timeLeft} ثانية`;
-            if (timeLeft <= 10) timerDisplay.classList.add("timer-low");
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                finishGame(false);
-            }
-        }, 1000);
-    };
-
-    // منطق السحب والإفلات (Drag & Drop)
+    // Drag and Drop Logic (كما هي)
     list.addEventListener("dragstart", (e) => {
-        if (list.classList.contains("disabled-list")) return e.preventDefault();
+        if (list.classList.contains("disabled-list") || data[currentChallenge].type !== "sort") return;
         e.target.classList.add('dragging');
     });
-
     list.addEventListener("dragend", (e) => e.target.classList.remove('dragging'));
-
     list.addEventListener("dragover", (e) => {
         e.preventDefault();
         const draggedItem = document.querySelector('.dragging');
         const afterElement = getDragAfterElement(list, e.clientY);
-        if (afterElement == null) {
-            list.appendChild(draggedItem);
-        } else {
-            list.insertBefore(draggedItem, afterElement);
-        }
+        if (afterElement == null) list.appendChild(draggedItem);
+        else list.insertBefore(draggedItem, afterElement);
     });
 
     function getDragAfterElement(container, y) {
@@ -141,50 +225,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return draggableElements.reduce((closest, child) => {
             const box = child.getBoundingClientRect();
             const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
+            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child };
+            else return closest;
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
-    // التحقق من صحة الترتيب
-    window.checkAnswer = function() {
-        const currentOrder = [...list.querySelectorAll("li")].map(li => li.innerText.trim());
-        const correctOrder = data[currentChallenge].steps;
-
-        if (JSON.stringify(currentOrder) === JSON.stringify(correctOrder)) {
-            clearInterval(timerInterval);
-            finishGame(true);
-        } else {
-            list.classList.add('shake');
-            setTimeout(() => list.classList.remove('shake'), 500);
-            Swal.fire({
-                icon: 'error',
-                title: 'حاول مرة أخرى!',
-                text: 'الترتيب الحالي غير صحيح.',
-                toast: true,
-                position: 'top-end',
-                timer: 2000,
-                showConfirmButton: false
-            });
-        }
-    };
-
-    function finishGame(isWin) {
-        list.classList.add("disabled-list");
-        document.querySelectorAll("#steps li").forEach(li => li.setAttribute("draggable", "false"));
-        
-        Swal.fire({
-            title: isWin ? "أحسنت! عمل رائع 🥳" : "انتهى الوقت! ⏱️",
-            text: isWin ? "لقد نجحت في ترتيب الدورة بشكل صحيح." : "لا تقلق، يمكنك المحاولة مرة أخرى لتتعلم الترتيب.",
-            icon: isWin ? "success" : "error",
-            confirmButtonText: "موافق",
-            confirmButtonColor: "#00e5a0"
-        }).then(() => resetGameUI());
-    }
-
-    // تشغيل التحدي الأول تلقائياً عند تحميل الصفحة
-    createChallengeItems();
+    initItems();
 });

@@ -332,3 +332,93 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
     color: var(--bg-900);
     box-shadow: 0 0 15px var(--primary);
 }
+.panel-header h3 span {
+    background: linear-gradient(45deg, #00f2fe, #4facfe); /* تدرج أزرق سماوي كريستالي */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    
+    /* الحجم الكبير */
+    font-size: 1.5rem; 
+    font-weight: 900;
+    
+    /* تنسيق الموقع والمسافات */
+
+    padding: 0 10px;
+    
+    /* تأثير الظل والتوهج لزيادة الوضوح */
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
+    
+    /* لضمان عدم تداخل النص مع العناصر الأخرى */
+    vertical-align: middle;
+}
+
+/* =============================================
+   تنسيقات إضافية لنظام الصح والغلط (Quiz Mode)
+   ============================================= */
+
+/* تنسيق الجملة العادي */
+.fact-item {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* إخفاء أيقونة السحب في نظام الصح والغلط */
+.fact-item::before {
+    content: '💡' !important; /* أيقونة لمبة بدلاً من أيقونة السحب */
+    font-size: 1rem !important;
+}
+
+/* عند اختيار الجملة (قبل التحقق) */
+.fact-item.selected {
+    border-color: #4facfe !important;
+    background: rgba(79, 172, 254, 0.15) !important;
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
+    transform: scale(1.02);
+}
+
+/* إضافة علامة صح صغيرة عند الاختيار */
+.fact-item.selected::after {
+    content: '✓';
+    position: absolute;
+    left: 15px;
+    color: #4facfe;
+    font-weight: 900;
+}
+
+/* تحسين شكل النص الكبير في العنوان */
+.panel-header h3 span {
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+    animation: fadeInScale 0.5s ease-out;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* استجابة الشاشات الصغيرة للحجم الكبير */
+@media (max-width: 600px) {
+    .panel-header h3 span {
+        font-size: 1.1rem;
+        display: block; /* ينزل لسطر جديد في الجوال عشان ما يطلع من الصندوق */
+        margin-top: 5px;
+    }
+}
+/* تنسيق أيقونة الحالة لتكون واضحة وبعيدة عن النص */
+.status-icon {
+    display: inline-block;
+    width: 25px;
+    font-size: 1.2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* لضمان أن الحدود تظهر بوضوح عند تغييرها بالجافاسكريبت */
+.fact-item {
+    border: 2px solid transparent; 
+    transition: all 0.3s ease;
+}
