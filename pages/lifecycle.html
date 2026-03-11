@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دورة حياة المرض | المختبر العلمي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/lifecycle.css">
+</head>
+
+<body>
+
+    <!-- جسيمات الخلفية -->
+    <div class="bg-particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span>
+    </div>
+
+    <!-- شبكة الخلفية -->
+    <div class="grid-overlay"></div>
+
+    <div class="page-header">
+        <a href="../index.html" class="back-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            العودة للرئيسية
+        </a>
+        <h1 class="page-title">
+            <span class="gradient-word">دورة حياة المرض</span>
+            <i class="fa-solid fa-viruses fa-sm" style="color: var(--primary);"></i>
+        </h1>
+        <p class="page-subtitle">
+            رحلة المسببات المرضية داخل جسم الإنسان، من لحظة الدخول وحتى انتقال العدوى.
+            مرحلة بمرحلة، لتتمكن من التعرّف على أسرار جهاز المناعة واختراق الأمراض.
+        </p>
+    </div>
+
+    <main class="lifecycle-container">
+        
+        <!-- التبويبات Tabs -->
+        <div class="tabs-container glass-panel">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="virus">
+                    <span class="tab-icon"><i class="fa-solid fa-virus"></i></span> الفيروسات
+                </button>
+                <button class="tab-btn" data-tab="bacteria">
+                    <span class="tab-icon"><i class="fa-solid fa-bacterium"></i></span> البكتيريا
+                </button>
+                <button class="tab-btn" data-tab="parasite">
+                    <span class="tab-icon"><i class="fa-solid fa-bug"></i></span> الطفيليات
+                </button>
+                <button class="tab-btn" data-tab="fungi">
+                    <span class="tab-icon"><i class="fa-brands fa-pagelines"></i></span> الفطريات
+                </button>
+                <button class="tab-btn" data-tab="discover">
+                    <span class="tab-icon"><i class="fa-solid fa-magnifying-glass"></i></span> اكتشف مرض
+                </button>
+            </div>
+
+            <!-- محتوى التبويبات -->
+            <div class="tabs-content">
+                
+                <!-- تبويب الفيروسات -->
+                <div class="tab-pane active" id="virus-pane">
+                    <div class="timeline-container">
+                        <div class="timeline-nodes">
+                            <div class="node active" data-stage="v1">
+                                <div class="node-circle">1</div>
+                                <span>الدخول والالتصاق</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="v2">
+                                <div class="node-circle">2</div>
+                                <span>الاختراق والتفريغ</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="v3">
+                                <div class="node-circle">3</div>
+                                <span>النسخ والتكاثر</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="v4">
+                                <div class="node-circle">4</div>
+                                <span>التجميع</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="v5">
+                                <div class="node-circle">5</div>
+                                <span>الانطلاق والعدوى</span>
+                            </div>
+                        </div>
+
+                        <div class="stage-details">
+                            
+                            <div id="v1" class="stage-card active-stage-info">
+                                <h3>1. الدخول والالتصاق</h3>
+                                <div class="card-icon"><i class="fa-solid fa-magnet"></i></div>
+                                <p>يلتصق الفيروس بمستقبلات خاصة على سطح خلية المضيف للبدء في غزوها.</p>
+                            </div>
+                            <div id="v2" class="stage-card">
+                                <h3>2. الاختراق والتفريغ</h3>
+                                <div class="card-icon"><i class="fa-solid fa-key"></i></div>
+                                <p>يدخل الفيروس أو مادته الوراثية إلى داخل الخلية ويبدأ بتفريغ محتواه الجيني.</p>
+                            </div>
+                            <div id="v3" class="stage-card">
+                                <h3>3. النسخ والتكاثر</h3>
+                                <div class="card-icon"><i class="fa-solid fa-dna"></i></div>
+                                <p>يستغل الفيروس آليات الخلية لنسخ مادته الوراثية وتصنيع بروتيناته الخاصة.</p>
+                            </div>
+                            <div id="v4" class="stage-card">
+                                <h3>4. التجميع</h3>
+                                <div class="card-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                <p>تتجمع المادة الوراثية والبروتينات الجديدة لتكوين جزيئات فيروسية كاملة وجاهزة.</p>
+                            </div>
+                            <div id="v5" class="stage-card">
+                                <h3>5. الانطلاق والعدوى</h3>
+                                <div class="card-icon"><i class="fa-solid fa-rocket"></i></div>
+                                <p>تخرج الفيروسات الجديدة من الخلية (مما يؤدي غالباً لموتها) لتهاجم خلايا أخرى.</p>
+                            </div>
+
+                        </div>
+
+                        <!-- Virus Challenge -->
+                        <button class="action-btn btn-primary mt-4" onclick="startChallenge('virus')">
+                            <i class="fa-solid fa-gamepad"></i> اختبر نفسك (60 ثانية)
+                        </button>
+                        <div id="virus-challenge" class="challenge-container">
+                            <div class="challenge-header">
+                                <h3>رتب مراحل دورة حياة الفيروس</h3>
+                            </div>
+                            <div class="timer-section">
+                                <div id="virus-timer" class="timer-badge">
+                                    <i class="fa-regular fa-clock"></i> 60 ثانية
+                                </div>
+                            </div>
+                            <ul id="virus-list" class="game-list disabled-list">
+                                <!-- سيتم توليد العناصر عشوائياً بواسطة الجافاسكربت -->
+                            </ul>
+                            <button id="virus-verify-btn" class="action-btn btn-success" onclick="verifyChallenge('virus')" disabled>
+                                <i class="fa-solid fa-check-double"></i> تحقق من الترتيب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تبويب البكتيريا -->
+                <div class="tab-pane" id="bacteria-pane">
+                    <div class="timeline-container">
+                        <div class="timeline-nodes">
+                            <div class="node active" data-stage="b1">
+                                <div class="node-circle">1</div>
+                                <span>التعرض والدخول</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="b2">
+                                <div class="node-circle">2</div>
+                                <span>الاستقرار والاستعمار</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="b3">
+                                <div class="node-circle">3</div>
+                                <span>التكاثر والنمو</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="b4">
+                                <div class="node-circle">4</div>
+                                <span>إفراز السموم والأعراض</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="b5">
+                                <div class="node-circle">5</div>
+                                <span>مقاومة المناعة والانتشار</span>
+                            </div>
+                        </div>
+
+                        <div class="stage-details">
+                            <div id="b1" class="stage-card active-stage-info">
+                                <h3>1. التعرض والدخول</h3>
+                                <div class="card-icon"><i class="fa-solid fa-door-open"></i></div>
+                                <p>تدخل البكتيريا الممرضة للجسم عبر الجروح المفتوحة، الفم، أو الجهاز التنفسي.</p>
+                            </div>
+                            <div id="b2" class="stage-card">
+                                <h3>2. الاستقرار والاستعمار</h3>
+                                <div class="card-icon"><i class="fa-solid fa-anchor"></i></div>
+                                <p>تبحث البكتيريا عن بيئة مناسبة، مثل الأنسجة المخاطية، وتبدأ بتثبيت نفسها هناك.</p>
+                            </div>
+                            <div id="b3" class="stage-card">
+                                <h3>3. التكاثر والنمو</h3>
+                                <div class="card-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                                <p>تنقسم البكتيريا سريعاً بآلية الانشطار الثنائي وتزيد أعدادها بشكل كبير.</p>
+                            </div>
+                            <div id="b4" class="stage-card">
+                                <h3>4. إفراز السموم والأعراض</h3>
+                                <div class="card-icon"><i class="fa-solid fa-biohazard"></i></div>
+                                <p>تفرز البكتيريا سموماً داخلية أو خارجية تسبب تلف الأنسجة وظهور أعراض المرض.</p>
+                            </div>
+                            <div id="b5" class="stage-card">
+                                <h3>5. مقاومة المناعة والانتشار</h3>
+                                <div class="card-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                                <p>تحاول البكتيريا التهرب من جهاز المناعة وقد تنتشر لأعضاء أخرى أو تنتقل لشخص آخر.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bacteria Challenge -->
+                        <button class="action-btn btn-primary mt-4" onclick="startChallenge('bacteria')">
+                            <i class="fa-solid fa-gamepad"></i> اختبر نفسك (60 ثانية)
+                        </button>
+                        <div id="bacteria-challenge" class="challenge-container">
+                            <div class="challenge-header">
+                                <h3>رتب مراحل دورة حياة البكتيريا</h3>
+                            </div>
+                            <div class="timer-section">
+                                <div id="bacteria-timer" class="timer-badge">
+                                    <i class="fa-regular fa-clock"></i> 60 ثانية
+                                </div>
+                            </div>
+                            <ul id="bacteria-list" class="game-list disabled-list">
+                                <!-- سيتم توليد العناصر عشوائياً بواسطة الجافاسكربت -->
+                            </ul>
+                            <button id="bacteria-verify-btn" class="action-btn btn-success" onclick="verifyChallenge('bacteria')" disabled>
+                                <i class="fa-solid fa-check-double"></i> تحقق من الترتيب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تبويب الطفيليات -->
+                <div class="tab-pane" id="parasite-pane">
+                    <div class="timeline-container">
+                        <div class="timeline-nodes">
+                            <div class="node active" data-stage="p1">
+                                <div class="node-circle">1</div>
+                                <span>الابتلاع أو اللدغ</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="p2">
+                                <div class="node-circle">2</div>
+                                <span>الوصول للبيئة المستهدفة</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="p3">
+                                <div class="node-circle">3</div>
+                                <span>التطور والنضج</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="p4">
+                                <div class="node-circle">4</div>
+                                <span>إنتاج البيوض (العدوى)</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="p5">
+                                <div class="node-circle">5</div>
+                                <span>الخروج واستكمال الدورة</span>
+                            </div>
+                        </div>
+
+                        <div class="stage-details">
+                            <div id="p1" class="stage-card active-stage-info">
+                                <h3>1. الابتلاع أو اللدغ (المرحلة المُعدية)</h3>
+                                <div class="card-icon"><i class="fa-solid fa-mosquito"></i></div>
+                                <p>يدخل الطفيل عن طريق لدغة حشرة ناقلة أو ابتلاع طعام أو ماء ملوث بالبيوض.</p>
+                            </div>
+                            <div id="p2" class="stage-card">
+                                <h3>2. الوصول للبيئة المستهدفة</h3>
+                                <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                                <p>يتحرك الطفيل عبر مجرى الدم أو الجهاز الهضمي للوصول إلى العضو المناسب لتطوره.</p>
+                            </div>
+                            <div id="p3" class="stage-card">
+                                <h3>3. التطور والنضج</h3>
+                                <div class="card-icon"><i class="fa-solid fa-worm"></i></div>
+                                <p>ينمو الطفيل داخل العضو المضيف ويتحول من طور اليرقة إلى الطور البالغ.</p>
+                            </div>
+                            <div id="p4" class="stage-card">
+                                <h3>4. إنتاج البيوض</h3>
+                                <div class="card-icon"><i class="fa-solid fa-egg"></i></div>
+                                <p>يبدأ الطفيل البالغ بالتكاثر وإنتاج أعداد كبيرة من البيوض في جسم المضيف.</p>
+                            </div>
+                            <div id="p5" class="stage-card">
+                                <h3>5. الخروج واستكمال الدورة</h3>
+                                <div class="card-icon"><i class="fa-solid fa-recycle"></i></div>
+                                <p>تخرج البيوض عبر الفضلات أو تُنقل بواسطة حشرات لتُكمل دورتها في بيئة أو كائن جديد.</p>
+                            </div>
+                        </div>
+
+                        <!-- Parasite Challenge -->
+                        <button class="action-btn btn-primary mt-4" onclick="startChallenge('parasite')">
+                            <i class="fa-solid fa-gamepad"></i> اختبر نفسك (60 ثانية)
+                        </button>
+                        <div id="parasite-challenge" class="challenge-container">
+                            <div class="challenge-header">
+                                <h3>رتب مراحل دورة حياة الطفيليات</h3>
+                            </div>
+                            <div class="timer-section">
+                                <div id="parasite-timer" class="timer-badge">
+                                    <i class="fa-regular fa-clock"></i> 60 ثانية
+                                </div>
+                            </div>
+                            <ul id="parasite-list" class="game-list disabled-list">
+                                <!-- سيتم توليد العناصر عشوائياً بواسطة الجافاسكربت -->
+                            </ul>
+                            <button id="parasite-verify-btn" class="action-btn btn-success" onclick="verifyChallenge('parasite')" disabled>
+                                <i class="fa-solid fa-check-double"></i> تحقق من الترتيب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تبويب الفطريات -->
+                <div class="tab-pane" id="fungi-pane">
+                    <div class="timeline-container">
+                        <div class="timeline-nodes">
+                            <div class="node active" data-stage="f1">
+                                <div class="node-circle">1</div>
+                                <span>استنشاق الأبواغ</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="f2">
+                                <div class="node-circle">2</div>
+                                <span>الاستقرار والإنبات</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="f3">
+                                <div class="node-circle">3</div>
+                                <span>النمو الخيطي واختراق الأنسجة</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="f4">
+                                <div class="node-circle">4</div>
+                                <span>التكاثر وإنتاج الجراثيم</span>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <div class="node" data-stage="f5">
+                                <div class="node-circle">5</div>
+                                <span>انتشار العدوى</span>
+                            </div>
+                        </div>
+
+                        <div class="stage-details">
+                            <div id="f1" class="stage-card active-stage-info">
+                                <h3>1. استنشاق الأبواغ أو التلامس</h3>
+                                <div class="card-icon"><i class="fa-solid fa-wind"></i></div>
+                                <p>تدخل الأبواغ الفطرية الدقيقة للجسم عبر الاستنشاق أو تصيب الجلد عبر التلامس المباشر.</p>
+                            </div>
+                            <div id="f2" class="stage-card">
+                                <h3>2. الاستقرار والإنبات</h3>
+                                <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+                                <p>في حال توفر الرطوبة والدفء المناسبين، تبدأ الأبواغ بالإنبات وتشكيل أنابيب نمو.</p>
+                            </div>
+                            <div id="f3" class="stage-card">
+                                <h3>3. النمو الخيطي واختراق الأنسجة</h3>
+                                <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
+                                <p>تتفرع الفطريات لتشكل خيوطاً فطرية (Hyphae) تقوم باختراق الأنسجة المجاورة واستمداد الغذاء.</p>
+                            </div>
+                            <div id="f4" class="stage-card">
+                                <h3>4. التكاثر وإنتاج الأبواغ</h3>
+                                <div class="card-icon"><i class="fa-solid fa-burst"></i></div>
+                                <p>عند نضوج المستعمرة الفطرية، تبدأ بإنتاج أبواغ جديدة لضمان بقائها واستمرارها.</p>
+                            </div>
+                            <div id="f5" class="stage-card">
+                                <h3>5. انتشار العدوى</h3>
+                                <div class="card-icon"><i class="fa-solid fa-smog"></i></div>
+                                <p>تُطرح الأبواغ الجديدة في الهواء أو تنتقل بالمخالطة لتصيب مناطق أخرى أو أفراداً جدداً.</p>
+                            </div>
+                        </div>
+
+                        <!-- Fungi Challenge -->
+                        <button class="action-btn btn-primary mt-4" onclick="startChallenge('fungi')">
+                            <i class="fa-solid fa-gamepad"></i> اختبر نفسك (60 ثانية)
+                        </button>
+                        <div id="fungi-challenge" class="challenge-container">
+                            <div class="challenge-header">
+                                <h3>رتب مراحل دورة حياة الفطريات</h3>
+                            </div>
+                            <div class="timer-section">
+                                <div id="fungi-timer" class="timer-badge">
+                                    <i class="fa-regular fa-clock"></i> 60 ثانية
+                                </div>
+                            </div>
+                            <ul id="fungi-list" class="game-list disabled-list">
+                                <!-- سيتم توليد العناصر عشوائياً بواسطة الجافاسكربت -->
+                            </ul>
+                            <button id="fungi-verify-btn" class="action-btn btn-success" onclick="verifyChallenge('fungi')" disabled>
+                                <i class="fa-solid fa-check-double"></i> تحقق من الترتيب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تبويب اكتشف مرض -->
+                <div class="tab-pane" id="discover-pane">
+                    <div class="discover-container">
+                        <div class="search-box glass-panel">
+                            <h3>ابحث عن أي مرض لاكتشاف مراحل تطوره</h3>
+                            <div class="search-input-wrapper">
+                                <input type="text" id="disease-search-input" placeholder="أدخل اسم المرض (مثال: الأنفلونزا)" autocomplete="off">
+                                <button id="discover-btn" class="discover-search-btn">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> اكتشف الآن
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="discover-results" class="discover-results-area">
+                            <!-- النتائج ستظهر هنا بصيغة تفاعلية -->
+                            <div class="empty-state">
+                                <i class="fa-solid fa-microscope"></i>
+                                <p>بانتظار بحثك... ابدأ بكتابة اسم مرض لتعرف أسراره.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- تذييل -->
+    <footer class="site-footer">
+        <p>
+            <span class="footer-icon">⚗️</span>
+            المختبر العلمي الافتراضي &nbsp;·&nbsp; الأستاذ <strong>أحمد أبو مسعود</strong>
+        </p>
+        <p class="footer-sub">مبادرة لتحقيق التفاعل العلمي والنظري للطلاب</p>
+    </footer>
+
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/lifecycle.js"></script>
+</body>
+
+</html>
