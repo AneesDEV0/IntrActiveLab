@@ -1,98 +1,52 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دورة حياة الفطر - تحدي الترتيب</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <title>تحدي دورة الحياة - التعليم التفاعلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/fungus.css">
 </head>
-
 <body>
-
-    <!-- جسيمات الخلفية -->
-    <div class="bg-particles">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span>
-    </div>
-    <!-- شبكة الخلفية -->
+    <div class="bg-particles"><span></span><span></span><span></span><span></span></div>
     <div class="grid-overlay"></div>
 
     <div class="page-header">
-        <a href="../index.html" class="back-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            العودة للرئيسية
-        </a>
-        <h1 class="page-title">
-            تحدي
-            <span class="gradient-word">دورة حياة الفطر</span>
-            🍄
-        </h1>
-        <p class="page-subtitle">رتب مراحل نمو الفطر خلال 60 ثانية للفوز بالتحدي!</p>
+        <a href="../index.html" class="back-link"> العودة للرئيسية </a>
+        <h1 class="page-title">تحدي <span id="challenge-title" class="gradient-word">دورة حياة الفطر</span> <span id="challenge-icon">🍄</span></h1>
+        
+        <div class="tabs-wrapper" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+            <button class="tab-btn active" onclick="switchChallenge('fungus')">الفطر 🍄</button>
+            <button class="tab-btn" onclick="switchChallenge('frog')">الضفدع 🐸</button>
+            <button class="tab-btn" onclick="switchChallenge('plants_vas')">نباتات وعائية 🌱</button>
+            <button class="tab-btn" onclick="switchChallenge('plants_non')">نباتات لا وعائية 🌿</button>
+        </div>
     </div>
 
     <div class="challenge-container">
-
-        <!-- قسم الفيديو -->
         <div class="video-panel glass-panel">
-            <div class="panel-header">
-                <span class="icon">🎥</span>
-                <h3>شاهد التعليمات</h3>
-            </div>
+            <div class="panel-header"><span class="icon">🎥</span><h3>شاهد التعليمات</h3></div>
             <div class="video-wrapper">
-                <video controls>
-                    <source src="../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4" type="video/mp4">
+                <video id="tutorial-video" controls style="width: 100%; border-radius: 12px;">
+                    <source id="video-source" src="../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4" type="video/mp4">
                     متصفحك لا يدعم تشغيل الفيديو.
                 </video>
             </div>
-            <p class="panel-desc">شاهد الفيديو بتمعن لمعرفة التسلسل الصحيح لمراحل نمو الفطر قبل بدء التحدي.</p>
+            <p id="video-desc" class="panel-desc">شاهد الفيديو بتمعن لمعرفة التسلسل الصحيح للمراحل.</p>
         </div>
 
-        <!-- قسم اللعبة -->
         <div class="game-panel glass-panel">
-            <div class="panel-header">
-                <span class="icon">🧩</span>
-                <h3>منطقة التحدي</h3>
-            </div>
-
-            <div class="timer-section">
-                <div id="timer-display" class="timer-badge">جاهز للتحدي؟</div>
-            </div>
-
-            <button id="start-btn" class="action-btn btn-primary" onclick="startChallenge()">
-                <span class="btn-icon">▶️</span>
-                بدء التحدي (60 ثانية)
-            </button>
-
-            <ul id="steps" class="game-list disabled-list">
-                <li draggable="false">الميسيليوم</li>
-                <li draggable="false">الأبواغ</li>
-                <li draggable="false">جسم الفطر</li>
-                <li draggable="false">الخيوط الفطرية</li>
-            </ul>
-
-            <button id="check-btn" class="action-btn btn-success" onclick="checkAnswer()" disabled
-                style="display: none;">
-                <span class="btn-icon">✓</span>
-                تحقق من الإجابة
-            </button>
+            <div class="panel-header"><span class="icon">🧩</span><h3>منطقة التحدي</h3></div>
+            <div class="timer-section"><div id="timer-display" class="timer-badge">جاهز للتحدي؟</div></div>
+            <button id="start-btn" class="action-btn btn-primary" onclick="startChallenge()">بدء التحدي (60 ثانية)</button>
+            <ul id="steps" class="game-list disabled-list"></ul>
+            <button id="check-btn" class="action-btn btn-success" onclick="checkAnswer()" style="display: none;">تحقق من الإجابة</button>
         </div>
-
     </div>
 
     <script src="../js/sweetalert2.all.min.js"></script>
     <script src="../js/fungus.js"></script>
 </body>
-
 </html>

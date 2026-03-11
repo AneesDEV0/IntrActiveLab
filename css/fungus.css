@@ -316,4 +316,19 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
     border-radius: var(--radius-sm);
     font-family: inherit;
     font-weight: 700;
+}.tab-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Cairo';
+    font-weight: bold;
+    transition: 0.3s;
+}
+.tab-btn.active {
+    background: var(--primary);
+    color: var(--bg-900);
+    box-shadow: 0 0 15px var(--primary);
 }
