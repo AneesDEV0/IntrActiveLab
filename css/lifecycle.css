@@ -1,0 +1,544 @@
+/* =============================================
+   🦠 دورة حياة المرض — lifecycle.css
+   ============================================= */
+
+/* Header Adjustments */
+.page-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    background: var(--glass);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+}
+
+.back-link:hover {
+    color: var(--primary);
+    background: rgba(0, 229, 160, 0.1);
+    border-color: rgba(0, 229, 160, 0.2);
+    transform: translateX(5px);
+}
+
+.page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Container */
+.lifecycle-container {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+/* Glass Panel Customization */
+.glass-panel {
+    background: var(--bg-800);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+}
+
+/* =============================================
+   Tabs System
+   ============================================= */
+.tabs-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    background: var(--bg-700);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.15), rgba(124, 99, 255, 0.15));
+    border-color: rgba(0, 229, 160, 0.4);
+    color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 229, 160, 0.1);
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+}
+
+/* Tabs Content Pane */
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================================
+   Timeline Design
+   ============================================= */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.timeline-nodes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.timeline-nodes::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-line {
+    flex-grow: 1;
+    height: 3px;
+    background: var(--bg-600);
+    margin: 0 0.5rem;
+    margin-top: -24px;
+    border-radius: 2px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    min-width: 80px;
+    text-align: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.node span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.node-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-700);
+    border: 2px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.node:hover .node-circle {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.node:hover span {
+    color: var(--text-primary);
+}
+
+/* Active Node */
+.node.active .node-circle {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-color: transparent;
+    color: var(--bg-900);
+    box-shadow: 0 0 20px rgba(0, 229, 160, 0.4);
+    transform: scale(1.15);
+}
+
+.node.active span {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* Active Timeline Line (Before active node) */
+.timeline-line.active-line {
+    background: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 229, 160, 0.3);
+}
+
+/* =============================================
+   Stage Details Cards
+   ============================================= */
+.stage-details {
+    position: relative;
+    min-height: 250px;
+}
+
+.stage-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 229, 160, 0.05);
+    border: 1px solid rgba(0, 229, 160, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stage-card.active-card {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.stage-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    margin: 0 auto 1rem auto;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+    animation: floating 3s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stage-card p {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* =============================================
+   Challenge Game Styles
+   ============================================= */
+/* Challenge Container */
+.challenge-container {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--glass-border);
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.challenge-container.active {
+    display: block;
+}
+
+.challenge-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.challenge-header h3 {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+/* Timer Section */
+.timer-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.timer-badge {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffd166;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+.timer-badge.timer-low {
+    background: rgba(255, 75, 110, 0.1);
+    color: var(--danger);
+    border-color: rgba(255, 75, 110, 0.3);
+    animation: dangerPulse 1s infinite alternate;
+}
+
+@keyframes dangerPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 75, 110, 0);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 75, 110, 0.3);
+    }
+}
+
+/* Buttons */
+.action-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--bg-900);
+    box-shadow: 0 5px 15px rgba(0, 229, 160, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 229, 160, 0.5);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
+
+.btn-success:disabled {
+    background: var(--glass);
+    color: var(--text-muted);
+    border: 1px solid var(--glass-border);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Draggable List */
+.game-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    min-height: 250px;
+    padding: 0;
+}
+
+.game-list li {
+    background: var(--bg-700);
+    border: 1px solid var(--glass-border);
+    padding: 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    user-select: none;
+    display: flex;
+    align-items: center;
+}
+
+.game-list li::before {
+    content: '⋮⋮';
+    margin-left: 1rem;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Disabled State */
+.disabled-list li {
+    opacity: 0.6;
+    background: var(--bg-900);
+}
+
+.disabled-list li::before {
+    opacity: 0.3;
+}
+
+/* Active Dragging States */
+.game-list:not(.disabled-list) li {
+    cursor: grab;
+}
+
+.game-list:not(.disabled-list) li:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.game-list:not(.disabled-list) li:active {
+    cursor: grabbing;
+}
+
+.game-list li.dragging {
+    opacity: 0.4;
+    border: 2px dashed var(--primary);
+    background: var(--primary-glow);
+    transform: scale(0.98);
+}
+
+.game-list.shake {
+    animation: listShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes listShake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(4px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+    40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+/* SweetAlert Customizations overrides */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: var(--bg-800);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: var(--radius-xl);
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+    color: var(--text-primary);
+}
+
+div:where(.swal2-container) div:where(.swal2-html-container) {
+    color: var(--text-muted);
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background: var(--primary);
+    color: var(--bg-900);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-weight: 700;
+}
+
+/* =============================================
+   Responsive Devices
+   ============================================= */
+@media (max-width: 768px) {
+    .glass-panel {
+        padding: 1.5rem;
+    }
+    .timeline-nodes {
+        justify-content: flex-start;
+        padding-bottom: 1rem;
+    }
+    .node {
+        min-width: 70px;
+    }
+    .timeline-line {
+        min-width: 30px;
+    }
+    .stage-card {
+        padding: 1.5rem;
+    }
+    .stage-card h3 {
+        font-size: 1.2rem;
+    }
+    .card-icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .tab-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+\ n . s t a g e - m e d i a   { \ n         w i d t h :   1 0 0 % ; \ n         m a x - w i d t h :   2 5 0 p x ; \ n         h e i g h t :   1 5 0 p x ; \ n         o b j e c t - f i t :   c o v e r ; \ n         b o r d e r - r a d i u s :   v a r ( - - r a d i u s - m d ) ; \ n         m a r g i n - b o t t o m :   1 . 5 r e m ; \ n         b o x - s h a d o w :   0   5 p x   1 5 p x   r g b a ( 0 , 0 , 0 , 0 . 3 ) ; \ n         b o r d e r :   2 p x   s o l i d   v a r ( - - g l a s s - b o r d e r ) ; \ n         t r a n s i t i o n :   v a r ( - - t r a n s i t i o n ) ; \ n } \ n \ n . s t a g e - m e d i a : h o v e r   { \ n         t r a n s f o r m :   s c a l e ( 1 . 0 5 ) ; \ n         b o r d e r - c o l o r :   v a r ( - - p r i m a r y ) ; \ n }  
+ 
