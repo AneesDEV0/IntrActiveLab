@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let timeLeft = 60;
     let currentChallenge = 'fungus';
 
+    // إنشاء زر إعادة المحاولة وتنسيقه
     const resetBtn = document.createElement("button");
     resetBtn.id = "reset-btn";
     resetBtn.className = "action-btn btn-primary";
@@ -20,49 +21,80 @@ document.addEventListener("DOMContentLoaded", function () {
     checkBtn.parentNode.appendChild(resetBtn);
 
     const data = {
-        fungus: { type: "sort", title: "دورة حياة الفطر", icon: "🍄", steps: ["الأبواغ", "الخيوط الفطرية", "الميسيليوم", "جسم الفطر"], video: "../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4", desc: "رتب مراحل نمو الفطر بالتسلسل الصحيح." },
-        frog: { type: "sort", title: "دورة حياة الضفدع", icon: "🐸", steps: ["البيوض", "أبو ذنيبة", "أبو ذنيبة بأرجل", "ضفدع صغير", "ضفدع بالغ"], video: "../video/WhatsApp Video 2026-03-11 at 10.17.59 AM.mp4", desc: "رتب مراحل تحول الضفدع من الماء إلى اليابسة." },
-        plants_vas: { type: "sort", title: "النباتات الوعائية", icon: "🌱", steps: ["امتصاص الماء (جذور)", "نقل السوائل (ساق)", "بناء ضوئي (أوراق)", "إنتاج البذور"], video: "../video/WhatsApp Video 2026-03-11 at 10.57.18 AM.mp4", desc: "رتب آلية عمل الأنسجة الوعائية في النبات." },
-        plants_non: { 
-            type: "quiz", title: "حقائق النباتات اللاوعائية", icon: "🌿", 
+        fungus: {
+            type: "sort",
+            title: "دورة حياة الفطر",
+            icon: "🍄",
+            steps: ["الأبواغ", "الخيوط الفطرية", "الميسيليوم", "جسم الفطر"],
+            video: "../video/WhatsApp Video 2026-03-10 at 10.51.18 PM.mp4",
+            desc: "رتب مراحل نمو الفطر بالتسلسل الصحيح."
+        },
+        frog: {
+            type: "sort",
+            title: "دورة حياة الضفدع",
+            icon: "🐸",
+            steps: ["البيوض", "أبو ذنيبة", "أبو ذنيبة بأرجل", "ضفدع صغير", "ضفدع بالغ"],
+            video: "../video/WhatsApp Video 2026-03-11 at 10.17.59 AM.mp4",
+            desc: "رتب مراحل تحول الضفدع."
+        },
+        plants_vas: {
+            type: "sort",
+            title: "النباتات الوعائية",
+            icon: "🌱",
+            steps: ["امتصاص الماء (جذور)", "نقل السوائل (ساق)", "بناء ضوئي (أوراق)", "إنتاج البذور"],
+            video: "../video/WhatsApp Video 2026-03-11 at 10.57.18 AM.mp4",
+            desc: "رتب آلية عمل الأنسجة الوعائية."
+        },
+        plants_non: {
+            type: "quiz",
+            title: "حقائق النباتات اللاوعائية",
+            icon: "🌿",
             items: [
                 { text: "تمتلك أشباه جذور وأشباه سيقان", isCorrect: true },
                 { text: "لا تحتوي على بذور وتتكاثر بالأبواغ", isCorrect: true },
                 { text: "تعيش في المناطق الرطبة الظليلة", isCorrect: true },
-                { text: "لا تمتلك أوعية ناقلة (خشب ولحاء)", isCorrect: true },
+                { text: "لا تمتلك أوعية ناقلة", isCorrect: true },
                 { text: "طولها من (2-5)سم", isCorrect: true },
-                { text: "تمتلك جذوراً حقيقية قوية", isCorrect: false },
-                { text: "تنتج ثماراً وأزهاراً ملونة", isCorrect: false },
-                { text: "تعتبر أشجار النخيل مثالاً عليها", isCorrect: false },
-                { text: "تنمو لارتفاعات شاهقة جداً", isCorrect: false },
-                { text: "تستطيع العيش في الصحراء الجافة بدون ماء", isCorrect: false }
-            ], 
-            video: "../video/WhatsApp Video 2026-03-11 at 2.41.27 PM.mp4", desc: "اختر 5 خصائص صحيحة للنباتات اللاوعائية." 
+                { text: "تمتلك جذوراً حقيقية", isCorrect: false },
+                { text: "تنتج أزهاراً", isCorrect: false },
+                { text: "النخيل مثال عليها", isCorrect: false },
+                { text: "تنمو لارتفاعات كبيرة", isCorrect: false },
+                { text: "تعيش في الصحراء بدون ماء", isCorrect: false }
+            ],
+            video: "../video/WhatsApp Video 2026-03-11 at 2.41.27 PM.mp4",
+            desc: "اختر 5 خصائص صحيحة."
         }
     };
 
+    // تبديل التحدي
     window.switchChallenge = function(type, element) {
         currentChallenge = type;
         const challenge = data[type];
+
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         if (element) element.classList.add('active');
+
         document.getElementById("challenge-title").innerText = challenge.title;
         document.getElementById("challenge-icon").innerText = challenge.icon;
         document.getElementById("video-desc").innerText = challenge.desc;
-        document.getElementById("instruction-text").innerText = (challenge.type === "sort") ? "(حرك ورتب)" : "(اختر 5 خصائص)";
+        document.getElementById("instruction-text").innerText =
+            (challenge.type === "sort") ? "(حرك ورتب)" : "(اختر 5 خصائص)";
+
         videoSource.src = challenge.video;
         videoPlayer.load();
+
         resetGameUI();
     };
 
     function startCountdown() {
         clearInterval(timerInterval);
         timeLeft = 60;
-        timerDisplay.innerText = `الوقت المتبقي: ${timeLeft}s`;
-        
+        timerDisplay.innerText = `الوقت المتبقي: ${timeLeft} ثانية`;
+        timerDisplay.style.color = "#00e5a0";
+
         timerInterval = setInterval(() => {
             timeLeft--;
-            timerDisplay.innerText = `الوقت المتبقي: ${timeLeft}s`;
+            timerDisplay.innerText = `الوقت المتبقي: ${timeLeft} ثانية`;
             if (timeLeft <= 10) timerDisplay.style.color = "#ff4757";
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
@@ -78,24 +110,28 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
             icon: 'error',
             title: 'انتهى الوقت!',
-            text: 'للأسف لم تنهِ التحدي في الوقت المحدد.',
-            confirmButtonText: 'حاول مرة أخرى'
+            text: 'حاول مجدداً وبسرعة أكبر!',
+            confirmButtonColor: '#ff4757'
         });
     }
 
     function initItems() {
         list.innerHTML = "";
         const challenge = data[currentChallenge];
+
         if (challenge.type === "sort") {
-            challenge.steps.forEach(step => {
+            // نأخذ نسخة ونخلطها لضمان عدم ظهورها مرتبة
+            let shuffledSteps = [...challenge.steps].sort(() => Math.random() - 0.5);
+            shuffledSteps.forEach(step => {
                 const li = document.createElement("li");
-                li.innerHTML = step;
+                li.innerText = step;
+                li.setAttribute("draggable", "true");
+                li.className = "sort-item"; // إضافة كلاس للتنسيق
                 list.appendChild(li);
             });
-            shuffleItems();
         } else {
-            const shuffled = [...challenge.items].sort(() => Math.random() - 0.5);
-            shuffled.forEach(item => {
+            const shuffledItems = [...challenge.items].sort(() => Math.random() - 0.5);
+            shuffledItems.forEach(item => {
                 const li = document.createElement("li");
                 li.innerHTML = `<span class="status-icon"></span> ${item.text}`;
                 li.dataset.correct = item.isCorrect;
@@ -104,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (list.classList.contains("disabled-list")) return;
                     const selectedCount = list.querySelectorAll(".selected").length;
                     if (!this.classList.contains("selected") && selectedCount >= 5) {
-                        Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'وصلت للحد الأقصى (5 خصائص)', showConfirmButton: false, timer: 1500 });
+                        Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'الحد الأقصى 5 فقط', showConfirmButton: false, timer: 1500 });
                         return;
                     }
                     this.classList.toggle("selected");
@@ -114,77 +150,71 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function shuffleItems() {
-        const items = Array.from(list.children);
-        items.sort(() => Math.random() - 0.5);
-        list.innerHTML = "";
-        items.forEach(item => list.appendChild(item));
-    }
-
     window.startChallenge = function() {
         startBtn.style.display = "none";
         checkBtn.style.display = "flex";
         resetBtn.style.display = "none";
         list.classList.remove("disabled-list");
-        timerDisplay.style.color = "#00e5a0";
         startCountdown();
-        if (data[currentChallenge].type === "sort") {
-            document.querySelectorAll("#steps li").forEach(li => li.setAttribute("draggable", "true"));
-        }
     };
 
     window.checkAnswer = function() {
         const challenge = data[currentChallenge];
         const allItems = list.querySelectorAll("li");
-        clearInterval(timerInterval);
-
+        
         if (challenge.type === "sort") {
             let isAllCorrect = true;
             allItems.forEach((li, index) => {
                 if (li.innerText.trim() === challenge.steps[index]) {
-                    li.style.backgroundColor = "rgba(0, 229, 160, 0.4)";
+                    li.style.background = "rgba(0, 229, 160, 0.3)";
                     li.style.borderColor = "#00e5a0";
                 } else {
-                    li.style.backgroundColor = "rgba(255, 71, 87, 0.4)";
+                    li.style.background = "rgba(255, 71, 87, 0.3)";
                     li.style.borderColor = "#ff4757";
                     isAllCorrect = false;
                 }
             });
 
             if (isAllCorrect) {
-                Swal.fire({ icon: 'success', title: 'عمل رائع!', text: 'لقد رتبت المراحل بشكل صحيح', confirmButtonColor: '#00e5a0' });
+                clearInterval(timerInterval);
+                Swal.fire({ icon: 'success', title: 'أحسنت!', text: 'ترتيبك دقيق ومثالي' });
+                finishVisuals();
             } else {
-                Swal.fire({ icon: 'error', title: 'هناك أخطاء', text: 'راجع الترتيب الملون بالأحمر', confirmButtonColor: '#ff4757' });
+                Swal.fire({ icon: 'error', title: 'هناك أخطاء', text: 'راجع العناصر الملونة بالأحمر' });
             }
-            finishVisuals();
-
         } else {
             const selectedItems = list.querySelectorAll(".selected");
             if (selectedItems.length !== 5) {
-                Swal.fire({ icon: 'warning', title: 'تنبيه', text: `يجب اختيار 5 خصائص فقط.`, confirmButtonColor: '#00e5a0' });
-                startCountdown(); // استكمال الوقت
+                Swal.fire({ icon: 'info', title: 'عذراً', text: 'يجب اختيار 5 خصائص لنتحقق من إجابتك' });
                 return;
             }
 
+            clearInterval(timerInterval);
+            let correctCount = 0;
             allItems.forEach(li => {
                 const isCorrect = li.dataset.correct === "true";
                 const isSelected = li.classList.contains("selected");
                 const icon = li.querySelector('.status-icon');
-                li.classList.remove("selected");
 
                 if (isSelected && isCorrect) {
-                    li.style.backgroundColor = "rgba(0, 229, 160, 0.4)"; li.style.borderColor = "#00e5a0";
+                    li.style.background = "rgba(0, 229, 160, 0.3)";
                     icon.innerHTML = "✅";
+                    correctCount++;
                 } else if (isSelected && !isCorrect) {
-                    li.style.backgroundColor = "rgba(255, 71, 87, 0.6)"; li.style.borderColor = "#ff4757";
+                    li.style.background = "rgba(255, 71, 87, 0.3)";
                     icon.innerHTML = "❌";
-                } else if (!isSelected && isCorrect) {
-                    li.style.backgroundColor = "rgba(0, 229, 160, 0.1)"; li.style.borderColor = "#00e5a0";
-                    li.style.opacity = "0.8"; icon.innerHTML = "💡"; 
-                } else {
-                    li.style.opacity = "0.2"; li.style.filter = "grayscale(100%)";
+                } else if (isCorrect) {
+                    li.style.border = "2px dashed #00e5a0";
+                    icon.innerHTML = "💡";
                 }
+                li.classList.remove("selected");
             });
+
+            if (correctCount === 5) {
+                Swal.fire({ icon: 'success', title: 'عبقري!', text: 'اخترت جميع الخصائص الصحيحة' });
+            } else {
+                Swal.fire({ icon: 'warning', title: `النتيجة: ${correctCount} من 5`, text: 'تعلم من الأخطاء وحاول مجدداً!' });
+            }
             finishVisuals();
         }
     };
@@ -192,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function finishVisuals() {
         list.classList.add("disabled-list");
         checkBtn.style.display = "none";
-        resetBtn.style.display = "flex"; 
+        resetBtn.style.display = "flex";
     }
 
     function resetGameUI() {
@@ -206,18 +236,24 @@ document.addEventListener("DOMContentLoaded", function () {
         initItems();
     }
 
-    // Drag and Drop Logic (كما هي)
+    // --- منطق السحب والإفلات المحسن ---
     list.addEventListener("dragstart", (e) => {
-        if (list.classList.contains("disabled-list") || data[currentChallenge].type !== "sort") return;
+        if (list.classList.contains("disabled-list")) return;
         e.target.classList.add('dragging');
     });
+
     list.addEventListener("dragend", (e) => e.target.classList.remove('dragging'));
+
     list.addEventListener("dragover", (e) => {
         e.preventDefault();
-        const draggedItem = document.querySelector('.dragging');
+        if (data[currentChallenge].type !== "sort") return;
         const afterElement = getDragAfterElement(list, e.clientY);
-        if (afterElement == null) list.appendChild(draggedItem);
-        else list.insertBefore(draggedItem, afterElement);
+        const draggedItem = document.querySelector('.dragging');
+        if (afterElement == null) {
+            list.appendChild(draggedItem);
+        } else {
+            list.insertBefore(draggedItem, afterElement);
+        }
     });
 
     function getDragAfterElement(container, y) {
@@ -230,5 +266,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
+    // التشغيل الأولي
     initItems();
 });
