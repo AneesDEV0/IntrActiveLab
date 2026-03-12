@@ -288,7 +288,7 @@ function clearHistory() {
 }
 
 /* ──────────────────────────────────────────
-   🚀 تهيئة عند التحميل
+🚀 تهيئة عند التحميل
    ────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     renderHistory();
