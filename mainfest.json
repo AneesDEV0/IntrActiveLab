@@ -1,0 +1,21 @@
+{
+  "name": "IntrActiveLab",
+  "short_name": "IntrLab",
+  "description": "المختبر العلمي الافتراضي للأحياء - الأستاذ أحمد أبو مسعود",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00d4ff",
+  "icons": [
+    {
+      "src": "./video/icon.jpeg", 
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "./video/icon.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المختبر العلمي الافتراضي | الأستاذ أحمد أبو مسعود</title>
     <meta name="description" content="مبادرة لتحقيق التفاعل العلمي والنظري للطلاب - الأستاذ أحمد أبو مسعود">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00d4ff">
+    <link rel="apple-touch-icon" href="./video/favicon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="shortcut icon" href="video/icon.jpeg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -164,7 +169,17 @@
             });
         }, { threshold: 0.1 });
         cards.forEach(card => observer.observe(card));
+
+        // كود تشغيل الـ Service Worker (PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('PWA Service Worker: Registered'))
+                    .catch(err => console.log('PWA Service Worker: Failed', err));
+            });
+        }
     </script>
+    
 </body>
 
 </html>
