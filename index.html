@@ -9,7 +9,7 @@
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00d4ff">
-    <link rel="apple-touch-icon" href="./video/favicon.png">
+    <link rel="apple-touch-icon" href="./video/icon.jpeg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="shortcut icon" href="video/icon.jpeg" type="image/x-icon">
@@ -50,6 +50,7 @@
             <p class="hero-desc">
                 استكشف عالم العلوم بطريقة تفاعلية مبتكرة — من تحليل الكائنات الحية إلى استعراض الكائنات ثلاثي الأبعاد
             </p>
+            <button id="install-btn" class="install-pwa-btn" style="display: none;">📱 تثبيت التطبيق</button>
         </div>
 
         <!-- إحصائيات سريعة -->
@@ -178,6 +179,32 @@
                     .catch(err => console.log('PWA Service Worker: Failed', err));
             });
         }
+
+        // PWA Install Button Logic
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'inline-flex';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted install');
+                }
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('appinstalled', (evt) => {
+            installBtn.style.display = 'none';
+        });
     </script>
     
 </body>

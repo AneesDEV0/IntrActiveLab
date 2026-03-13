@@ -58,6 +58,28 @@ body {
 /* ========================
    🕸️ Grid Overlay
    ======================== */
+.install-pwa-btn {
+    margin-top: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--bg-900);
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 229, 160, 0.4);
+    transition: var(--transition);
+}
+
+.install-pwa-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 229, 160, 0.6);
+}
+
 .grid-overlay {
     position: fixed;
     inset: 0;
