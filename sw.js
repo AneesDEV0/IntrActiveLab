@@ -20,14 +20,20 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+  // استخدام استراتيجية الشبكة أولاً (Network First) لحل مشكلة الكاش
+  // سيجلب أحدث الملفات من السيرفر دائماً، وفي حال انقطاع الإنترنت سيعود للكاش
   e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request).then((fetchResponse) => {
+    fetch(e.request)
+      .then((response) => {
+        // تحديث الكاش بالنسخة الجديدة
         return caches.open('lab-store').then((cache) => {
-          cache.put(e.request, fetchResponse.clone());
-          return fetchResponse;
+          cache.put(e.request, response.clone());
+          return response;
         });
-      });
-    })
+      })
+      .catch(() => {
+        // العودة للكاش فقط عند انقطاع الإنترنت أو فشل الاتصال
+        return caches.match(e.request);
+      })
   );
 });

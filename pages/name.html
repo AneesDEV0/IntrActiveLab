@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- منع الكاش نهائياً للتطوير -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>محلل الكائنات الحية | المختبر العلمي</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +15,7 @@
         rel="stylesheet">
     <link rel="shortcut icon" href="../video/icon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
-    <link rel="stylesheet" href="../css/name.css">
+    <link rel="stylesheet" href="../css/name.css?v=1.1">
 </head>
 
 <body>
@@ -116,6 +120,20 @@
             </div>
         </section>
 
+        <!-- مكتبة الصور المقترحة -->
+        <section class="gallery-section">
+            <div class="history-header" style="flex-direction: column; align-items: flex-start; gap: 0.2rem; margin-bottom: 0.5rem;">
+                <h2>
+                    <span>🖼️</span>
+                    مكتبة الصور المقترحة للتحليل
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">اختر إحدى الصور لتجربة التحليل مباشرة</p>
+            </div>
+            <div class="suggested-gallery" id="suggestedGallery">
+                <!-- سيتم حقن الصور هنا عبر JS -->
+            </div>
+        </section>
+
         <!-- سجل التحليلات المحفوظة -->
         <section class="history-section" id="historySection">
             <div class="history-header">
@@ -143,7 +161,7 @@
     </main>
 
     <script src="../js/sweetalert2.all.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/script.js?v=1.1"></script>
 </body>
 
 </html>

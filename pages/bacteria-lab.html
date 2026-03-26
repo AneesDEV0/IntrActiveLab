@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكاة زراعة البكتيريا | المختبر العلمي الافتراضي</title>
+    <meta name="description" content="نشاط تفاعلي لمحاكاة تجربة زراعة البكتيريا على طبق بتري في مختبر افتراضي">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Bacteria Lab Styles -->
+    <link rel="stylesheet" href="../css/bacteria-lab.css">
+
+    <style>
+        /* SweetAlert RTL override */
+        .swal2-popup { font-family: 'Cairo', sans-serif !important; direction: rtl; }
+        .swal2-title { font-size: 1.1rem !important; }
+        .swal2-html-container { font-size: 0.9rem !important; }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================
+         🌌 خلفية الموقع
+         ======================== -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- ========================
+         🎬 نافذة الترحيب
+         ======================== -->
+    <div id="welcome-overlay">
+        <div class="welcome-card">
+            <div class="welcome-icon">🦠</div>
+            <h1>محاكاة زراعة البكتيريا</h1>
+            <p class="welcome-sub">
+                مرحباً بك في المختبر الافتراضي!<br>
+                ستُجري تجربة زراعة بكتيرية كاملة من اختيار العينة حتى تفسير النتيجة.
+            </p>
+
+            <!-- اختيار الوضع -->
+            <div class="mode-label">اختر وضع النشاط</div>
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="learn">
+                    <span>📚</span>
+                    <span>وضع التعلم</span>
+                    <small style="font-size:0.7rem;opacity:0.7">تلميحات مستمرة</small>
+                </button>
+                <button class="mode-btn" data-mode="test">
+                    <span>📝</span>
+                    <span>وضع الاختبار</span>
+                    <small style="font-size:0.7rem;opacity:0.7">بدون تلميحات</small>
+                </button>
+            </div>
+
+            <!-- اختيار مستوى الصعوبة -->
+            <div class="diff-label">مستوى الصعوبة</div>
+            <div class="diff-selector">
+                <button class="diff-btn" data-diff="easy">
+                    <span>🟢</span>
+                    <span>سهل</span>
+                </button>
+                <button class="diff-btn active" data-diff="medium">
+                    <span>🟡</span>
+                    <span>متوسط</span>
+                </button>
+                <button class="diff-btn" data-diff="hard">
+                    <span>🔴</span>
+                    <span>متقدم</span>
+                </button>
+            </div>
+
+            <!-- زر البدء -->
+            <button class="start-btn" id="start-btn">
+                <i class="fas fa-flask"></i>
+                ابدأ التجربة الآن
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================
+         🖥️ التطبيق الرئيسي
+         ======================== -->
+    <div id="app">
+
+        <!-- =============================
+             🔝 الشريط العلوي
+             ============================= -->
+        <header class="top-bar">
+
+            <!-- العنوان -->
+            <div class="top-bar-title">
+                <a href="../index.html" title="العودة للرئيسية"
+                   style="color:var(--text-muted);text-decoration:none;font-size:1.2rem;margin-left:0.3rem">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <span>🦠</span>
+                <span>محاكاة زراعة البكتيريا</span>
+            </div>
+
+            <!-- شريط التقدم -->
+            <div class="top-bar-center">
+                <div class="progress-info">
+                    <span class="progress-label" id="progress-label">اختيار العينة</span>
+                    <span id="progress-pct">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- إحصائيات -->
+            <div class="top-stats">
+                <div class="stat-pill mode"   id="mode-display">📚 تعلم</div>
+                <div class="stat-pill score"  id="score-display">⭐ 100</div>
+                <div class="stat-pill errors" id="error-count">❌ 0</div>
+                <div class="stat-pill timer"  id="timer-display">⏱️ 00:00</div>
+            </div>
+
+        </header>
+
+        <!-- =============================
+             🧪 منطقة المحتوى الرئيسية
+             ============================= -->
+        <main class="lab-content">
+
+            <!-- ========================
+                 🧰 لوحة الأدوات (يمين)
+                 ======================== -->
+            <aside class="tools-panel">
+                <div class="panel-title">
+                    <i class="fas fa-toolbox"></i>
+                    الأدوات المخبرية
+                </div>
+                <!-- تُملأ بـ JavaScript -->
+                <div class="tools-grid" id="tools-grid"></div>
+
+                <!-- تمت إزالة الطبق من هنا ونقله للمنتصف كمساحة عمل حقيقية -->
+            </aside>
+
+            <!-- ========================
+                 🔬 منطقة العمل (وسط)
+                 ======================== -->
+            <section class="work-area">
+
+                <!-- شريط تقدم الخطوات -->
+                <div class="steps-nav" id="steps-nav">
+                    <!-- تُملأ بـ JavaScript -->
+                </div>
+
+                <!-- 🧫 طاولة العمل (Lab Bench) - الطبق التفاعلي -->
+                <div class="lab-bench" id="lab-bench"
+                     ondragover="event.preventDefault(); this.classList.add('active-bench')"
+                     ondragleave="this.classList.remove('active-bench')"
+                     ondrop="handleDrop(event)">
+                     
+                    <div class="petri-wrap" id="petri-canvas-wrap">
+                        <!-- Canvas سيتولد هنا بحجم أكبر -->
+                    </div>
+                    <span class="petri-status" id="petri-status">طاولة المختبر معقمة وجاهزة...</span>
+                    
+                    <!-- طبقة مؤثرات تفاعلية فوق الطبق -->
+                    <div id="bench-effects"></div>
+                </div>
+
+                <!-- بطاقة الخطوة الحالية -->
+                <div id="step-area">
+                    <!-- تُملأ بـ JavaScript -->
+                </div>
+
+            </section>
+
+            <!-- ========================
+                 💬 لوحة التغذية الراجعة (يسار)
+                 ======================== -->
+            <aside class="feedback-panel">
+
+                <!-- سجل الأحداث -->
+                <div class="feedback-card">
+                    <div class="panel-title">
+                        <i class="fas fa-terminal"></i>
+                        سجل الأحداث
+                    </div>
+                    <div class="feedback-log" id="feedback-log">
+                        <div class="log-entry info">
+                            <span>🔬</span>
+                            <span>مرحباً بك! ابدأ بقراءة تعليمات كل خطوة بعناية.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- حقيقة علمية -->
+                <div class="science-card">
+                    <strong>💡 هل تعلم؟</strong>
+                    <p id="science-fact" style="transition: opacity 0.4s ease;">
+                        البكتيريا كائنات وحيدة الخلية تتكاثر بالانشطار الثنائي كل 20 دقيقة في الظروف المثالية.
+                    </p>
+                </div>
+
+                <!-- أسطورة الألوان -->
+                <div class="feedback-card" style="padding: 1rem;">
+                    <div class="panel-title" style="margin-bottom:0.6rem">
+                        <i class="fas fa-palette"></i> أسطورة رموز النتائج
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.75rem;color:var(--text-sec);">
+                        <div style="display:flex;align-items:center;gap:0.5rem">
+                            <span style="width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#ffd54f,#ff6f00);display:inline-block;flex-shrink:0"></span>
+                            مستعمرات طبيعية (نجاح)
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5rem">
+                            <span style="width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#ef5350,#b71c1c);display:inline-block;flex-shrink:0"></span>
+                            مستعمرات تلوث
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5rem">
+                            <span style="width:14px;height:14px;border-radius:50%;background:#e0e0e0;display:inline-block;flex-shrink:0"></span>
+                            لا يوجد نمو
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </main>
+
+    </div><!-- /#app -->
+
+    <!-- ========================
+         🏆 نافذة النتائج
+         ======================== -->
+    <div id="results-overlay">
+        <!-- تُملأ بـ JavaScript -->
+    </div>
+
+    <!-- ========================
+         📋 نافذة الخطوات الصحيحة
+         ======================== -->
+    <div id="steps-guide-overlay">
+        <!-- تُملأ بـ JavaScript -->
+    </div>
+
+    <!-- ========================
+         📕 المكتبات الخارجية
+         ======================== -->
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- 🌈 وحدة الرسومات (SVG + Canvas) — يجب تحميلها قبل السكربت الرئيسي -->
+    <script src="../js/bacteria-lab-visuals.js"></script>
+
+    <!-- ========================
+         🚀 السكربت الرئيسي
+         ======================== -->
+    <script src="../js/bacteria-lab.js"></script>
+
+    <!-- تأثيرات GSAP إضافية بعد تحميل الصفحة -->
+    <script>
+        // GSAP Enhancement: تحريك البطاقات والعناصر بعد ظهور التطبيق
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // مراقبة ظهور #app لتشغيل تحريك GSAP
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach(m => {
+                    if (m.type === 'attributes' && m.attributeName === 'class') {
+                        const app = document.getElementById('app');
+                        if (app && app.classList.contains('active')) {
+                            // تحريك الشريط العلوي
+                            gsap.from('.top-bar', {
+                                y: -40, opacity: 0, duration: 0.5, ease: 'power2.out'
+                            });
+                            // تحريك الألواح
+                            gsap.from('.tools-panel', {
+                                x: 40, opacity: 0, duration: 0.6, delay: 0.1, ease: 'power2.out'
+                            });
+                            gsap.from('.work-area', {
+                                y: 30, opacity: 0, duration: 0.6, delay: 0.15, ease: 'power2.out'
+                            });
+                            gsap.from('.feedback-panel', {
+                                x: -40, opacity: 0, duration: 0.6, delay: 0.2, ease: 'power2.out'
+                            });
+                            observer.disconnect();
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.getElementById('app'), { attributes: true });
+        });
+    </script>
+
+</body>
+</html>
