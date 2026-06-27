@@ -15,10 +15,22 @@
     <link rel="shortcut icon" href="video/icon.jpeg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
+    <!-- شريط التنقل (Navigation Bar) -->
+    <nav class="top-nav">
+        <div class="nav-brand">المختبر الافتراضي</div>
+        <div class="nav-links">
+            <a href="pages/about.html" class="nav-link">عن مختبرنا</a>
+            <a href="#modules-sec" class="nav-link btn-primary">الوحدات العلمية</a>
+        </div>
+    </nav>
 
     <!-- جسيمات الخلفية -->
     <div class="bg-particles">
@@ -30,51 +42,13 @@
     <!-- شبكة الخلفية -->
     <div class="grid-overlay"></div>
 
-    <!-- قسم الهيرو -->
-    <header class="hero">
-
-        <!-- شارة أعلى -->
-        <div class="hero-badge">
-            <span class="badge-dot"></span>
-            مبادرة للتفاعل العلمي والنظري للطلاب
-        </div>
-
-        <!-- العنوان الرئيسي -->
-        <div class="hero-title-group">
-            <div class="lab-icon">⚗️</div>
-            <h1 class="hero-title">
-                المختبر العلمي
-                <span class="gradient-word">الافتراضي</span>
-            </h1>
-            <p class="hero-sub">الأستاذ <strong>أحمد أبو مسعود</strong></p>
-            <p class="hero-desc">
-                استكشف عالم العلوم بطريقة تفاعلية مبتكرة — من تحليل الكائنات الحية إلى استعراض الكائنات ثلاثي الأبعاد
-            </p>
-            <button id="install-btn" class="install-pwa-btn" style="display: none;">📱 تثبيت التطبيق</button>
-        </div>
-
-        <!-- إحصائيات سريعة -->
-        <div class="stats-row">
-            <div class="stat-item">
-                <span class="stat-num">8+</span>
-                <span class="stat-label">وحدة علمية</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-num">AI</span>
-                <span class="stat-label">تحليل ذكي</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-num">3D</span>
-                <span class="stat-label">نماذج تفاعلية</span>
-            </div>
-        </div>
-
+    <!-- قسم الهيرو الجديد (صورة فقط كما طلب المستخدم) -->
+    <header class="hero poster-hero">
+        <img src="images/land.png" alt="المختبر الافتراضي للصف الثامن الأساسي" class="responsive-poster-img">
     </header>
 
     <!-- قسم بطاقات الوحدات -->
-    <main class="modules-section">
+    <main id="modules-sec" class="modules-section">
         <h2 class="modules-title">اختر وحدتك العلمية</h2>
         <div class="modules-grid">
 

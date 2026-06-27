@@ -307,18 +307,18 @@ if (document.readyState !== 'loading') {
    🖼️ مكتبة الصور المقترحة
    ────────────────────────────────────────── */
 const suggestedImages = [
-    { name: "قطة", url: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400&q=80" },
-    { name: "كلب", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/400px-Cute_dog.jpg" },
-    { name: "فيل", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/400px-African_Bush_Elephant.jpg" },
-    { name: "أسد", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/400px-Lion_waiting_in_Namibia.jpg" },
-    { name: "نمر", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Walking_tiger_female.jpg/400px-Walking_tiger_female.jpg" },
-    { name: "فراشة", url: "https://images.unsplash.com/photo-1535083783855-76ae62b2914e?w=400&q=80" },
-    { name: "وردة", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Rosa_rubiginosa_1.jpg/400px-Rosa_rubiginosa_1.jpg" },
-    { name: "تباع الشمس", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/400px-Sunflower_sky_backdrop.jpg" },
-    { name: "صبار", url: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&q=80" },
-    { name: "سلحفاة", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Chelonia_mydas_is_going_for_the_air.jpg/400px-Chelonia_mydas_is_going_for_the_air.jpg" },
-    { name: "بطريق", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Emperor_Penguin_Manchot_empereur.jpg/400px-Emperor_Penguin_Manchot_empereur.jpg" },
-    { name: "دلفين", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/400px-Tursiops_truncatus_01.jpg" }
+    { name: "قطة", url: "https://loremflickr.com/400/400/cat" },
+    { name: "كلب", url: "https://loremflickr.com/400/400/dog" },
+    { name: "فيل", url: "https://loremflickr.com/400/400/elephant" },
+    { name: "أسد", url: "https://loremflickr.com/400/400/lion" },
+    { name: "نمر", url: "https://loremflickr.com/400/400/tiger" },
+    { name: "فراشة", url: "https://loremflickr.com/400/400/butterfly" },
+    { name: "وردة", url: "https://loremflickr.com/400/400/rose" },
+    { name: "تباع الشمس", url: "https://loremflickr.com/400/400/sunflower" },
+    { name: "صبار", url: "https://loremflickr.com/400/400/cactus" },
+    { name: "سلحفاة", url: "https://loremflickr.com/400/400/turtle" },
+    { name: "بطريق", url: "https://loremflickr.com/400/400/penguin" },
+    { name: "دلفين", url: "https://loremflickr.com/400/400/dolphin" }
 ];
 
 function renderSuggestedGallery() {

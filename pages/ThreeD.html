@@ -13,10 +13,19 @@
         rel="stylesheet">
        <link rel="shortcut icon" href="../video/icon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/ThreeD.css">
 </head>
 
 <body>
+    <!-- شريط التنقل العلوي -->
+    <nav class="top-nav">
+        <div class="nav-brand">المختبر الافتراضي</div>
+        <div class="nav-links">
+            <a href="about.html" class="nav-link">عن مختبرنا</a>
+            <a href="../index.html" class="nav-link btn-primary">العودة للرئيسية</a>
+        </div>
+    </nav>
 
     <!-- جسيمات الخلفية (نفس index.html) -->
     <div class="bg-particles">
@@ -72,7 +81,6 @@
                     <tbody id="quizBody"></tbody>
                 </table>
                 <button class="btn-check" onclick="checkAnswers()">تحقق من إجاباتك ✅</button>
-                <a href="../index.html" class="back-link">العودة للرئيسية</a>
             </div>
         </main>
     </div>
