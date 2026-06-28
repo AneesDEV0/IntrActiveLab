@@ -758,8 +758,10 @@ body {
     position: relative;
     z-index: 2;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
     min-height: calc(100vh - 5.5rem);
     min-height: calc(100svh - 5.5rem);
     padding: clamp(0.85rem, 2.6vw, 1.5rem);
