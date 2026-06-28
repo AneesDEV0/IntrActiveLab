@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المختبر العلمي الافتراضي | الأستاذ أحمد أبو مسعود</title>
-    <meta name="description" content="مبادرة لتحقيق التفاعل العلمي والنظري للطلاب - الأستاذ أحمد أبو مسعود">
+    <meta name="description" content="المختبر العلمي الافتراضي للأحياء - الأستاذ أحمد أبو مسعود">
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00d4ff">
@@ -23,14 +23,6 @@
 
 <body>
 
-    <!-- شريط التنقل (Navigation Bar) -->
-    <nav class="top-nav">
-        <div class="nav-brand">المختبر الافتراضي</div>
-        <div class="nav-links">
-            <a href="pages/about.html" class="nav-link">عن مختبرنا</a>
-            <a href="#modules-sec" class="nav-link btn-primary">الوحدات العلمية</a>
-        </div>
-    </nav>
 
     <!-- جسيمات الخلفية -->
     <div class="bg-particles">
@@ -124,15 +116,6 @@
         
     </main>
 
-    <!-- تذييل -->
-    <footer class="site-footer">
-        <p>
-            <span class="footer-icon">⚗️</span>
-            المختبر العلمي الافتراضي &nbsp;·&nbsp; الأستاذ <strong>أحمد أبو مسعود</strong>
-        </p>
-        <p class="footer-sub">مبادرة لتحقيق التفاعل العلمي والنظري للطلاب</p>
-    </footer>
-
     <script>
         // تأثير الدخول التدريجي للبطاقات
         const cards = document.querySelectorAll('.module-card');
@@ -159,28 +142,33 @@
         const installBtn = document.getElementById('install-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
+            if (!installBtn) return;
             e.preventDefault();
             deferredPrompt = e;
             installBtn.style.display = 'inline-flex';
         });
 
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted install');
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('User accepted install');
+                    }
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
                 }
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
-            }
-        });
+            });
 
-        window.addEventListener('appinstalled', (evt) => {
-            installBtn.style.display = 'none';
-        });
+            window.addEventListener('appinstalled', () => {
+                installBtn.style.display = 'none';
+            });
+        }
     </script>
     
+    <script src="js/nav-loader.js"></script>
+    <script src="js/footer.js"></script>
 </body>
 
 </html>

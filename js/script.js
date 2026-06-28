@@ -164,9 +164,9 @@ function renderResults(data) {
 }
 
 /* ──────────────────────────────────────────
-   💾 حفظ في localStorage
+   💾 حفظ في IndexedDB
    ────────────────────────────────────────── */
-function saveToHistory() {
+async function saveToHistory() {
     if (!currentData || alreadySaved) return;
 
     const record = {
@@ -176,42 +176,34 @@ function saveToHistory() {
         savedAt: new Date().toLocaleString('ar-EG')
     };
 
-    const history = getHistory();
-    history.unshift(record);           // أضف في البداية
-    localStorage.setItem('biolab-history', JSON.stringify(history));
+    try {
+        await BioLabDB.save(record);
+        alreadySaved = true;
+        saveBtn.classList.add('saved');
+        saveBtn.innerHTML = `✅ تم الحفظ في السجل`;
+        await renderHistory();
 
-    alreadySaved = true;
-    saveBtn.classList.add('saved');
-    saveBtn.innerHTML = `✅ تم الحفظ في السجل`;
-
-    renderHistory();
-
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        title: 'تم الحفظ في السجل 📚',
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        background: '#111f38',
-        color: '#f0f6ff'
-    });
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'تم الحفظ في السجل 📚',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            background: '#111f38',
+            color: '#f0f6ff'
+        });
+    } catch (err) {
+        Swal.fire({ icon: 'error', title: 'خطأ في الحفظ', text: err.message, background: '#111f38', color: '#f0f6ff' });
+    }
 }
 
 /* ──────────────────────────────────────────
    🗂️ عرض السجل التاريخي
    ────────────────────────────────────────── */
-function getHistory() {
-    try {
-        return JSON.parse(localStorage.getItem('biolab-history') || '[]');
-    } catch {
-        return [];
-    }
-}
-
-function renderHistory() {
-    const history = getHistory();
+async function renderHistory() {
+    const history = await BioLabDB.getAll();
     const grid = document.getElementById('historyGrid');
     const emptyState = document.getElementById('emptyHistory');
     const clearBtn = document.getElementById('clearBtn');
@@ -264,14 +256,13 @@ function renderHistory() {
     });
 }
 
-function deleteRecord(id) {
-    let history = getHistory().filter(r => r.id !== id);
-    localStorage.setItem('biolab-history', JSON.stringify(history));
-    renderHistory();
+async function deleteRecord(id) {
+    await BioLabDB.remove(id);
+    await renderHistory();
 }
 
-function clearHistory() {
-    Swal.fire({
+async function clearHistory() {
+    const result = await Swal.fire({
         title: 'مسح كل السجل؟',
         text: 'لن تتمكن من الرجوع بعد الحذف',
         icon: 'warning',
@@ -281,27 +272,21 @@ function clearHistory() {
         confirmButtonColor: '#ff4b6e',
         background: '#111f38',
         color: '#f0f6ff'
-    }).then(result => {
-        if (result.isConfirmed) {
-            localStorage.removeItem('biolab-history');
-            renderHistory();
-        }
     });
+    if (result.isConfirmed) {
+        await BioLabDB.clear();
+        await renderHistory();
+    }
 }
 
-/* ──────────────────────────────────────────
+/* ——————————————————————————————————————————
 🚀 تهيئة عند التحميل
-   ────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-    renderHistory();
+   —————————————————————————————————————————— */
+document.addEventListener('DOMContentLoaded', async () => {
+    await BioLabDB.migrateFromLocalStorage(); // ترحيل أي بيانات قديمة من localStorage
+    await renderHistory();
     renderSuggestedGallery();
 });
-
-// إذا كان DOM محمل بالفعل
-if (document.readyState !== 'loading') {
-    renderHistory();
-    renderSuggestedGallery();
-}
 
 /* ──────────────────────────────────────────
    🖼️ مكتبة الصور المقترحة
